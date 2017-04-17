@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>自己需要记住和时常复习的python要点和小技巧 | 小信' Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">自己需要记住和时常复习的python要点和小技巧</h1><a id="logo" href="/.">小信' Blog</a><p class="description"></p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">自己需要记住和时常复习的python要点和小技巧</h1><div class="post-meta">Jun 29, 2015<script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><a data-thread-key="2015/06/29/python_tips/" href="/2015/06/29/python_tips/#comments" class="ds-thread-count"></a><div class="post-content"><p>不定时更新中,<br>20141007最新更新</p>
+<ul>
+<li><h3 id="列出100以内被3整除的数更简单的方法"><a href="#列出100以内被3整除的数更简单的方法" class="headerlink" title="列出100以内被3整除的数更简单的方法:"></a>列出100以内被3整除的数更简单的方法:</h3><pre><code>range(3,100,3)    
+</code></pre></li>
+</ul>
+<ul>
+<li><h3 id="删除读取文本文件换行回车的方法"><a href="#删除读取文本文件换行回车的方法" class="headerlink" title="删除读取文本文件换行回车的方法:"></a>删除读取文本文件换行回车的方法:</h3><pre><code>line.strip()
+</code></pre></li>
+<li><h3 id="判断字符串是否是回文的简单方法"><a href="#判断字符串是否是回文的简单方法" class="headerlink" title="判断字符串是否是回文的简单方法:"></a>判断字符串是否是回文的简单方法:</h3><pre><code>def isPalindrome(s):
+    return s == s[::-1]
+</code></pre></li>
+<li><h3 id="字符串的一些方法"><a href="#字符串的一些方法" class="headerlink" title="字符串的一些方法:"></a>字符串的一些方法:</h3><ul>
+<li>S.upper() #S中的字母大写</li>
+<li>S.lower() #S中的字母小写</li>
+<li>S.capitalize() #首字母大写</li>
+<li>S.title() #每个单词首字母大写</li>
+<li>S.count(str,,) #S字符串范围内str字符出现的次数</li>
+<li>S.find(str,,) #S字符串范围内第一个str字符的索引</li>
+<li>S.istitle() #每个单词首字母是否大写的，且其它为小写，</li>
+<li>S.isupper() #S中的字母是否全是大写</li>
+<li>S.islower() #S中的字母是否全是小写</li>
+<li>S.isalpha() #S中的字符是否只有字母组成</li>
+<li>S.isalnum() #S中得字符是否只有字母或者数字组成</li>
+<li>S.isdigit() #S中的字符是否只有数字组成</li>
+<li>S.lower() #全部小写</li>
+<li>S.upper() #全部大写</li>
+<li>S.join(S1) #以S为分隔符,将S1中所有元素合并成一个新的字符串</li>
+<li>S.strip() #去掉S前后的空格</li>
+<li>S.replace(s1,s2) #将S中的s1用s2代替</li>
+</ul>
+</li>
+<li><h3 id="在collections模块中有一个Counter类"><a href="#在collections模块中有一个Counter类" class="headerlink" title="在collections模块中有一个Counter类"></a>在collections模块中有一个Counter类</h3><p>   Counter类的目的是用来跟踪值出现的次数。它是一个无序的容器类型，以字典的键值对形式存储，其中元素作为key，其计数作为value。计数值可以是任意的Interger（包括0和负数）。<br>   例如:统计一个字符串中重复字母的在字母表最先出现的字符</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">from collections import Counter</div><div class="line"></div><div class="line"></div><div class="line">def checkio(text):</div><div class="line">    count = Counter([x for x in text.lower() if x.isalpha()])</div><div class="line">    m = max(count.values())</div><div class="line">    return sorted([x for (x, y) in count.items() if y == m])[0]</div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    print(checkio(&quot;Hello World!&quot;))</div><div class="line">    print(checkio(&quot;How do you do?&quot;))</div><div class="line">    print(checkio(u&quot;One&quot;))</div><div class="line">    print(checkio(u&quot;Oops!&quot;))</div></pre></td></tr></table></figure>
+<p>   counter的方法有增加(updata)和减少(subtract)两种:<br>   比如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">count = Counter(&apos;which&apos;)</div><div class="line">count[&apos;h&apos;]</div><div class="line"> #结果显示:2</div><div class="line">count.update(&apos;witch&apos;)</div><div class="line">count.[&apos;h&apos;] </div><div class="line"> #结果显示:3</div></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h3><h4 id="B-括号"><a href="#B-括号" class="headerlink" title="B(括号)"></a>B(括号)</h4>在正则表达式中有 3 种类型的括号<br>方括号”[“内是需要匹配的字符,花括号”{“内是指定匹配字符的数量。 圆括号“(“ 则是用来分组的。<h4 id="C-插入符号"><a href="#C-插入符号" class="headerlink" title="C(插入符号)"></a>C(插入符号)</h4>插入符号 “^” 表示正则式的开始。<h4 id="D-美元符号"><a href="#D-美元符号" class="headerlink" title="D(美元符号)"></a>D(美元符号)</h4>美元符号“$” 表示正则式的结束。</li>
+</ul>
+<p>注意:类似(com|net|org)的多选一,用圆括号.</p>
+<p>年月日的匹配:<br>yy-mm-dd</p>
+<pre><code>&apos;^(1[9][0-9][0-9]|2[0][0-1][0-9]|[0-9][0-9])[\.-]?([1-9]|0[1-9]|1[0-2])[\.-]?([1-9]|0[1-9]|1[0-9]|2[0-9]|3[0-1])$&apos;
+</code></pre><p>时间的匹配:<br>hh:mm:ss</p>
+<pre><code>&apos;^([0-9]|0[0-9]|1[0-9]|2[0-3])[:]([0-9]|0[0-9]|[0-6][0-9])[:]([0-9]|0[0-9]|[0-5][0-9])$&apos;
+</code></pre><p>ip地址的匹配:</p>
+<pre><code>&apos;^(([01]?[0-9][0-9]?|2[0-4][0-9]|2[5][0-5])\.){3}([01]?[0-9][0-9]?|2[0-4][0-9]|2[5][0-5])$&apos;
+</code></pre><ul>
+<li><h3 id="字母-字符与ASCII数字对应的函数"><a href="#字母-字符与ASCII数字对应的函数" class="headerlink" title="字母 字符与ASCII数字对应的函数:"></a>字母 字符与ASCII数字对应的函数:</h3>  ord（）将字符转换成ascii码数字<br>  chr()将ascii码数字转换为字符<br>  unichr()将ascii码整数返回成unicode字符</li>
+</ul>
+<ul>
+<li><h3 id="random-sample-list-n-通常用来产生不重复的n位数字"><a href="#random-sample-list-n-通常用来产生不重复的n位数字" class="headerlink" title="random.sample(list, n)通常用来产生不重复的n位数字"></a>random.sample(list, n)通常用来产生不重复的n位数字</h3><pre><code>print int(&apos;&apos;.join(map(str, random.sample(range(10), 10))))
+#3571490628
+</code></pre></li>
+<li><h3 id="enumerate的用法"><a href="#enumerate的用法" class="headerlink" title="enumerate的用法"></a>enumerate的用法</h3><p>enumerate会将数组或列表组成一个索引序列。使我们再获取索引和索引内容的时候更加方便：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">for index，text in enumerate(list)): </div><div class="line">    print index ,text</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://mrxin.github.io/2015/06/29/python_tips/" data-id="cj1ln1i360020veh6f0dlkbru" class="article-share-link">分享到</a><div class="tags"><a href="/tags/python/">python</a></div><div class="post-nav"><a href="/2015/03/05/st3-install/" class="pre">sublime text3 安装和设置</a><a href="/2015/08/04/win10-codecs-bug/" class="next">win10下面python的codecs模块写入txt文件，用记事本打开显示不换行bug</a></div><div data-thread-key="2015/06/29/python_tips/" data-title="自己需要记住和时常复习的python要点和小技巧" data-url="http://mrxin.github.io/2015/06/29/python_tips/" class="ds-share flat"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><a href="javascript:void(0);" class="ds-more">分享到：</a></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qzone" class="ds-qzone">QQ空间</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul><div class="ds-share-icons-more"></div></div></div><div data-thread-key="2015/06/29/python_tips/" data-title="自己需要记住和时常复习的python要点和小技巧" data-url="http://mrxin.github.io/2015/06/29/python_tips/" data-author-key="1" class="ds-thread"></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://mrxin.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/黑苹果/" style="font-size: 15px;">黑苹果</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/iOS/" style="font-size: 15px;">iOS</a> <a href="/tags/科学上网/" style="font-size: 15px;">科学上网</a> <a href="/tags/系统/" style="font-size: 15px;">系统</a> <a href="/tags/软件/" style="font-size: 15px;">软件</a> <a href="/tags/Markdown/" style="font-size: 15px;">Markdown</a> <a href="/tags/Windows/" style="font-size: 15px;">Windows</a> <a href="/tags/html/" style="font-size: 15px;">html</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/10/22/mac-setting/">黑苹果MAC os 10.11新安装后的设置和软件安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/14/last-hexo/">hexo最新版本的安装和数据恢复</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/13/zsh-prompt/">修改zsh命令提示符</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/23/jd-woods/">python获取京东商品信息</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/18/jd-duobaodao/">用python的selenium实现京东夺宝岛最后一秒自动下单</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/16/zhihu-voted-list/">用python找出知乎某个答案点赞的所有名单</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/15/mac-10-11-6/">MAC OS X 10.11.6 El Capitan安装方法与步骤</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/15/login-jd/">python模拟登陆京东</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/11/login-zhihu/">python模拟登陆知乎</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/30/net-music-comment/">python抓取网易云音乐最新评论和评论总数</a></li></ul></div><div class="widget"><div class="comments-title"><i class="fa fa-comment-o"> 最近评论</i></div><div data-num-items="5" data-show-avatars="0" data-show-time="1" data-show-admin="0" data-excerpt-length="32" data-show-title="1" class="ds-recent-comments"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/playbear" title="我的github" target="_blank">我的github</a><ul></ul><a href="http://www.zhihu.com/people/ClutchBear" title="我的知乎" target="_blank">我的知乎</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">小信' Blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script>var duoshuoQuery = {short_name:'clutchbear'};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
