@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[20170506 可用的登录知乎的python代码]]></title>
+    <url>%2F2017%2F05%2F06%2Flogin-zhihu20170506%2F</url>
+    <content type="text"><![CDATA[123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354#!/usr/bin/env python# -*- coding: utf-8 -*-import requestsfrom bs4 import BeautifulSoupimport timeimport jsonimport osurl = 'https://www.zhihu.com'loginURL = 'https://www.zhihu.com/login/email'headers = &#123; "User-Agent": 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:53.0) Gecko/20100101 Firefox/53.0', "Referer": "https://www.zhihu.com/", 'Host': 'www.zhihu.com',&#125;data = &#123; 'email': 'xxxxx', 'password': 'xxxxx', 'rememberme': "true",&#125;s = requests.session()if os.path.exists('cookiefile'): with open('cookiefile') as f: cookie = json.load(f) s.cookies.update(cookie) req1 = s.get(url, headers=headers) # 建立一个zhihu.html文件,用于验证是否登陆成功 with open('zhihu.html', 'w') as f: f.write(req1.content)else: req = s.get(url, headers=headers) print req soup = BeautifulSoup(req.text, "html.parser") xsrf = soup.find('input', &#123;'name': '_xsrf', 'type': 'hidden'&#125;).get('value') data['_xsrf'] = xsrf timestamp = int(time.time() * 1000) captchaURL = 'https://www.zhihu.com/captcha.gif?=' + \ str(timestamp) + "&amp;type=login" print captchaURL with open('zhihucaptcha.gif', 'wb') as f: captchaREQ = s.get(captchaURL, headers=headers) f.write(captchaREQ.content) loginCaptcha = raw_input('input captcha:\n').strip() data['captcha'] = loginCaptcha print data loginREQ = s.post(loginURL, headers=headers, data=data) if not loginREQ.json()['r']: print s.cookies.get_dict() with open('cookiefile', 'wb') as f: json.dump(s.cookies.get_dict(), f) else: print 'login fail']]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[vim个人常用命令]]></title>
+    <url>%2F2017%2F04%2F17%2Fvim-command-personal%2F</url>
+    <content type="text"><![CDATA[按Esc进入普通模式，在该模式下使用方向键或者h,j,k,l键可以移动游标 按键 说明 h 左 l 右 j 上 k 下 w 下一个单词 b 上一个单词 在普通模式下使用下面的键将进入插入模式，并可以从相应的位置开始输入 按键 说明 i 在当前光标处进行编辑 I 行首插入 A 行末插入 a 在光标后插入 o 在当前光标处进行编辑 O 在当前光标处进行编辑 x 删除游标所在的字符 dd 删除整行 D 删除至行尾 gg 游标移动到到第一行 G(Shift+g) 到最后一行 在普通模式下按:进入命令模式, 按键 说明 set nu 显示行号 q! 强制退出, 不保存 q 退出 wq 保存并退出 wq! 强制保存并退出]]></content>
+      <tags>
+        <tag>软件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[vscode配置]]></title>
+    <url>%2F2017%2F04%2F17%2Fvscode-setting%2F</url>
+    <content type="text"><![CDATA[按f1输入task,调出运行配置文件 输入 1234567891011121314&#123; "version": "0.1.0", "command": "python", "isShellCommand": true, "args": ["$&#123;file&#125;"], "showOutput": "always", "options": &#123; "env": &#123; "PYTHONIOENCODING": "UTF-8" &#125; &#125;&#125; 常用插件 进辅助线 Guides 文件图标 vscode-icons 缩进线 Indenticator 设置 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152// 将设置放入此文件中以覆盖默认设置&#123; "window.zoomLevel": 2, //字号 "editor.fontSize": 14, // 字体 "editor.fontFamily": "Hack, Menlo, Monaco, 'Courier New', monospace", //80个字符的提示线 "editor.rulers": [80], "editor.acceptSuggestionOnEnter": true, // Arguments passed in. Each argument is a separate item in the array. //pep8自动格式化 "python.formatting.autopep8Args":[ "--max-line-length=80", "--indent-size=4" ], // Format the document upon saving. 保存文件后自动格式化 "python.formatting.formatOnSave": true, // 忽略的pep8提示 "python.linting.pylintArgs": [ "--include-naming-hint=n", "--disable=W0311", "--disable=C0103", "--disable=E1101", "--disable=C0111", "--disable=W0621" ], //去除尾部的空格 "files.trimTrailingWhitespace": true, //失去焦点时自动保存 "files.autoSave": "onFocusChange", //显示缩进空格 "editor.renderWhitespace": "boundary", "editor.renderLineHighlight": "line", //忽略的文件 "files.exclude": &#123; "**/.git": true, "**/.svn": true, "**/.hg": true, "**/.DS_Store": true, ".vscode": true, "**/__pycache__": true, "**/**/*.pyc": true &#125;, //关闭显示打开的文件 "explorer.openEditors.visible": 0, //关闭回车的自动补全 "editor.acceptSuggestionOnEnter": false&#125; 需要安装pylint和auto pep8; 自己需要的快捷键 12345678[ &#123; "key": "f6", "command": "workbench.action.debug.continue", "when": "inDebugMode" &#125;,&#123; "key": "f6", "command": "workbench.action.debug.start", "when": "!inDebugMode" &#125;,&#123; "key": "f5", "command": "workbench.action.tasks.build" &#125;] 不出现自动补全提示的时候,在~/.vscode/extensions/donjayamanne.python-0.5.5/pythonFiles/preview/jedi/parser目录下复制一份grammar3.5.txt,并将其改名为grammar3.6.txt]]></content>
+      <tags>
+        <tag>软件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[黑苹果MAC os 10.11新安装后的设置和软件安装]]></title>
+    <url>%2F2016%2F10%2F22%2Fmac-setting%2F</url>
+    <content type="text"><![CDATA[新安装好的系统,需要安装软件和配置,将这些步骤记录下来,以后需要的适合查询. 屏蔽”Thunderbolt 1.2 固件更新”黑苹果在APP store更新界面一直有”Thunderbolt 1.2 固件更新”提醒, 在iterm2运行” 1softwareupdate --ignore ThunderboltFirmwareUpdate1.2 安装Xcode Command Line Tools也就是命令行工具,大概需要10分钟. 1xcode-select --install 安装zsh, 命令参考github 1sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" 然后配置iterm2, 去掉General的两个Confirm的勾选, 以防iterm2阻止MAC的关机. Profiles-Text两个字号选择18, 字体选择Hack 修改主题和提示符: subl ~/.zshrc, 第10行的主题改成half-life,然后提示符修改代码加入最后, 12PROMPT=$'%&#123;$purple%&#125;%n%&#123;$reset_color%&#125; in %&#123;$limegreen%&#125;%~%&#123;$reset_color%&#125;$(ruby_prompt_info " with%&#123;$fg[red]%&#125; " v g "%&#123;$reset_color%&#125;")$vcs_info_msg_0_%&#123;$orange%&#125;%&#123;$reset_color%&#125; at %&#123;$hotpink%&#125;%* %&#123;$orange%&#125;λ%&#123;$reset_color%&#125; ' 安装brew 1ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 用brew分别安装各种工具,比如tree, git, openssl, mongodb等.tree是mac下生成目录树的工具, 12345brew install treebrew install gitbrew install opensslbrew python3brew mysql 安装pip 1sudo easy_install pip 在墙内为了更快的安装各种库, 需要更换pip的安装源,自己建立 “~/.pip/pip.conf”文件 123mkdir ~/.pip/cd ~/.pip/subl pip.conf 将 123[global]trusted-host = pypi.douban.comindex-url = http://pypi.douban.com/simple/ 拷贝进去 用pip安装各种库,比如requests, beautifulsoup4, mysql-pyhton, virtualenv等.]]></content>
+      <tags>
+        <tag>黑苹果</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo最新版本的安装和数据恢复]]></title>
+    <url>%2F2016%2F09%2F14%2Flast-hexo%2F</url>
+    <content type="text"><![CDATA[最近用webstorm运行编辑好的html网页文件,总是显示无法打开,改localhost端口不行. 网上搜索了半天,发现很少人出现这种问题. 我怀疑是MAC osx系统以前装的东西跟webstorm冲突了. 只好重新安装我的黑苹果系统. 安装一帆风顺,各种软件也安装配置正常. 但是安装和恢复hexo博客文件的时候遇到的问题, 按照以前的方法总是没法恢复成功.只好按hexo 官网的最新方法一步一步的重新安装了. 更新github的SSH key, 在终端输入命令一路回车生成SSH 1234ssh-keygen -t rsa -C "your_email@example.com"cd ~/.sshsubl id_rsa.pub 将sublime text里面的ssh密钥拷贝粘贴到github账户里面. 1ssh -T git@github.com 验证ssh配置是否成功. 12git config --global user.name "用户名"git config --global user.email "邮箱地址" 运行上面命令,可以避免每次hexo d提交的时候都输入账户密码 安装Node.js, hexo官网提供的是用命令安装的方式, 我发现还是去Node.js官网下载一个安装程序方便.下载地址 安装Hexo 1npm install -g hexo-cli 初始化 123hexo init mrxin.github.iocd mrxin.github.ionpm install 完成后, 用 sublime text打开 _config.yml进行配置, 参考以前的配置文件, 需要注意的是, 最后deploy部分,以前type是github,现在改成了git. 1234deploy: type: git repository: https://github.com/MrXin/MrXin.github.io.git branch: master 这里还有一个重要的步骤是现在需要安装”hexo-deployer-git”,方法: 1npm install hexo-deployer-git --save 主题安装和配置: 我喜欢的主题叫”Landscape-plus”, 不知道是hexo的bug还是这个主题的不过,标签或者分类只能显示10篇文章的主题. 我又挑了一款不好看的主题,叫maupassant,其官网. 使用方法比较简单,按照官方步骤来就行了,最后在多说参数后填上:clutchbear即可. 最后将以前备份的md文件拷贝到_posts目录里面, 生成静态页面传到github上. 12hexo ghexo d Rss需要按装插件: 1npm install hexo-generator-feed@1 --save]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[修改zsh命令提示符]]></title>
+    <url>%2F2016%2F09%2F13%2Fzsh-prompt%2F</url>
+    <content type="text"><![CDATA[修改zsh命令提示符 安装好zsh后， 打开终端，输入1vim ~/.zshrc 打开zsh配置文件 在.zshrc最下面加入123456autoload -U compinit promptinitcompinitpromptinit# 设置 redhat 主题的默认命令行提示符prompt redhat 启动tab命令补全 和 命令提示符主题,可以用终端命令’prompt -l’或者’prompt -p’查看可用主题 修改保存后,重启终端,可能出现警告12zsh compinit: insecure directories, run compaudit for list.Ignore insecure directories and continue [y] or abort compinit [n]? 按y后,可以出现修改后命令提示符 如果想取消这个警告,在On OSX 10.11下,输入123cd /usr/local/share/sudo chmod -R 755 zshsudo chown -R root:staff zsh]]></content>
+      <tags>
+        <tag>系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python获取京东商品信息]]></title>
+    <url>%2F2016%2F08%2F23%2Fjd-woods%2F</url>
+    <content type="text"><![CDATA[1234567891011121314151617181920212223242526#!/usr/bin/env python# -*- coding: utf-8 -*-import requestsfrom bs4 import BeautifulSoupurl = 'http://list.jd.com/list.html?cat=9987%2C653%2C655&amp;page=1'req = requests.get(url)soup = BeautifulSoup(req.text, "html.parser")items = soup.select('li.gl-item')# print len(items)for item in items: sku = item.find('div')['data-sku'] print sku, price_url = 'http://p.3.cn/prices/mgets?skuIds=J_' + str(sku) price = requests.get(price_url).json()[0]['p'] print price, nameinfo = item.find('div', class_="p-name").find('a') name = nameinfo['title'] item_url = 'http:' + nameinfo['href'] print name, item_url, commit = item.find('div', class_="p-commit").find('a') if commit: print commit.get_text() 其中价格是json获取的, 1http://p.3.cn/prices/mgets?skuIds=J_ + skuId 还有几个获取获取json的方法: 1http://c0.3.cn/stock?skuId=965009&amp;cat=652,829,854&amp;area=1_2812_51141_0&amp;extraParam=&#123;"originid":"1"&#125; 其中skuid是商品id,cat可以在商品网页里面获取到, area是地区码,返回京东网页版商品的价格,当地商品是否有货. 1http://item.m.jd.com/ware/thirdAddress.json?address=jd1356&amp;wareId=965009&amp;provinceId=1&amp;cityId=2812&amp;countryId=51141 其中wareID是商品id,area是地区码,返回京东手机版商品的价格,当地商品是否有货. 1http://pe.3.cn/prices/pcpmgets?skuids=965012&amp;origin=5&amp;area=1_2812_51141 其中skuid是商品id,cat可以在商品网页里面获取到, area是地区码,返回商品网页版价格和手机版微信版价格.]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[用python的selenium实现京东夺宝岛最后一秒自动下单]]></title>
+    <url>%2F2016%2F08%2F18%2Fjd-duobaodao%2F</url>
+    <content type="text"><![CDATA[123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263#!/usr/bin/env python# -*- coding: utf-8 -*-from selenium import webdriverimport requestsimport timeimport datetimeimport jsondef get_endTime(paimaiID): endTimeURL = 'http://paimai.jd.com/services/currentList.action?paimaiIds=&#123;0&#125;&amp;callback=jQuery5542114'.format( paimaiID) req = requests.get(endTimeURL) data = json.loads(req.text[15: -2]) return data['endTime'] - 900def paimai(endTime, paimaiID, name, passWord, want_price): driver = webdriver.Firefox() driver.get( 'https://passport.jd.com/new/login.aspx?ReturnUrl=http://paimai.jd.com/&#123;0&#125;'.format(paimaiID)) email = driver.find_element_by_xpath('//input[@id="loginname"]') email.clear() email.send_keys(name) password = driver.find_element_by_xpath('//input[@id="nloginpwd"]') password.clear() password.send_keys(passWord) form = driver.find_element_by_xpath('//a[@id="loginsubmit"]') form.click() try: captcha = driver.find_element_by_xpath('//input[@id="authcode"]') if captcha: input_captcha = raw_input() captcha.send_keys(input_captcha) form.click() except: pass while 1: nowTime = int(time.time() * 1000) if nowTime == endTime: break current_price_url = 'http://paimai.jd.com/json/current/englishquery?paimaiId=&#123;0&#125;&amp;skuId=0&amp;start=0&amp;end=9'.format( paimaiID) current_price = json.loads( requests.get(current_price_url).content)['currentPrice'] last_price = int(eval(current_price) + 1) print last_price if last_price &gt; want_price: return price = driver.find_element_by_xpath('//input[@id="bidPrice"]') price.clear() price.send_keys(str(int(last_price))) botton = driver.find_element_by_xpath( '//div[@id="auctionStatus1"]/div[2]/a[1]') botton.click()if __name__ == "__main__": # 夺宝岛商品id paimaiID = '11087928' # 登录名 name = "xxxxxx" # 密码 password = 'xxxxxx' # 预期心理价位 want_price = 1000 endTime = get_endTime(paimaiID) print endTime paimai(endTime, paimaiID, name, password, want_price)]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[用python找出知乎某个答案点赞的所有名单]]></title>
+    <url>%2F2016%2F08%2F16%2Fzhihu-voted-list%2F</url>
+    <content type="text"><![CDATA[123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990#!/usr/bin/env python# -*- coding: utf-8 -*-import requestsfrom bs4 import BeautifulSoupimport timeimport jsonimport osimport sysurl = 'http://www.zhihu.com'loginURL = 'http://www.zhihu.com/login/email'headers = &#123; "User-Agent": 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:41.0) Gecko/20100101 Firefox/41.0', "Referer": "http://www.zhihu.com/", 'Host': 'www.zhihu.com',&#125;data = &#123; 'email': 'xxxxx@gmail.com', 'password': 'xxxxxxx', 'rememberme': "true",&#125;s = requests.session()# 如果成功登陆过,用保存的cookies登录if os.path.exists('cookiefile'): with open('cookiefile') as f: cookie = json.load(f) s.cookies.update(cookie) req1 = s.get(url, headers=headers) with open('zhihu.html', 'w') as f: f.write(req1.content)# 第一次需要手动输入验证码登录else: req = s.get(url, headers=headers) print req soup = BeautifulSoup(req.text, "html.parser") xsrf = soup.find('input', &#123;'name': '_xsrf', 'type': 'hidden'&#125;).get('value') data['_xsrf'] = xsrf timestamp = int(time.time() * 1000) captchaURL = 'http://www.zhihu.com/captcha.gif?=' + str(timestamp) print captchaURL with open('zhihucaptcha.gif', 'wb') as f: captchaREQ = s.get(captchaURL) f.write(captchaREQ.content) loginCaptcha = raw_input('input captcha:\n').strip() data['captcha'] = loginCaptcha # print data loginREQ = s.post(loginURL, headers=headers, data=data) # print loginREQ.url # print s.cookies.get_dict() if not loginREQ.json()['r']: # print loginREQ.json() with open('cookiefile', 'wb') as f: json.dump(s.cookies.get_dict(), f) else: print 'login failed, try again!' sys.exit(1)# 以http://www.zhihu.com/question/27621722/answer/48820436这个大神的399各赞为例子.zanBaseURL = 'http://www.zhihu.com/answer/22229844/voters_profile?&amp;offset=&#123;0&#125;'page = 0count = 0while 1: zanURL = zanBaseURL.format(str(page)) page += 10 zanREQ = s.get(zanURL, headers=headers) zanData = zanREQ.json()['payload'] if not zanData: break for item in zanData: # print item zanSoup = BeautifulSoup(item, "html.parser") zanInfo = zanSoup.find('a', &#123;'target': "_blank", 'class': 'zg-link'&#125;) if zanInfo: print 'nickname:', zanInfo.get('title'), ' ', print 'person_url:', zanInfo.get('href') else: anonymous = zanSoup.find( 'img', &#123;'title': True, 'class': "zm-item-img-avatar"&#125;) print 'nickname:', anonymous.get('title') count += 1 print count]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[MAC OS X 10.11.6 El Capitan安装方法与步骤]]></title>
+    <url>%2F2016%2F08%2F15%2Fmac-10-11-6%2F</url>
+    <content type="text"><![CDATA[苹果公司发布了最新的Mac系统El Capitan,我也跟风安装了,昨天试了一天终于算是安装成功了. 电脑配置:CPU: E3-1230 v2主板: 技嘉B75M D3V显卡: 微星6850声卡: Realtek ALC887键盘: Noppoo 84键机械键盘 下载远景论坛czczyx大神制作的原版镜像,OS X El Capitan 15A284原版安装U盘镜像（带Clover 3270引导) 在win下面用zd423大神制作的不限速的百度云4.62版本下载大概两个小时. 备份到U盘在win下,管理员权限运行TransMac工具, 将验证过MD5码的10.11镜像恢复到至少8G的U盘上.然后启动原来的mac10.10, 用Clover Configurator工具打开EFI文件里面的config.plist配置文件,将System Parameters的Inject Kents改成Yes, 以防安装的时候一直菊花白屏.或者,进入到CLOVER引导界面后，选择boot install mac os x with inject 安装重启电脑, 一直按F12, 选择UEFI U盘启动, 选择安装 EL Captain,大概四五分钟后, 进入安装选择界面, 选择磁盘工具, 格式化要安装的硬盘 安装10.11, 大概20分钟到最后1秒, 这个1秒也要持续10~20分钟 重启后再次U盘选择安装EL Captain, 这次同样需要20分钟左右 重启后u盘选择从刚刚安装的硬盘启动El Captain, 配置用户名密码,不要选择网络,之后进入桌面 安装驱动 安装事先下载好的clover, 安装的时候选择自定,然后勾选’UEFI开机版本’ 将U盘的EFI目录粘贴覆盖到电脑的EFI盘中, 如果没有显示可以用Clover Configurator挂载. 将下载好的网卡驱动拷贝到’/Volumes/EFI/EFI/CLOVER/kexts/10.11’. 我用的也是远景大神提供的下载 重启电脑,安装声卡,我主板是技嘉的B75M-D3V, 声卡型号是ALC887, 在10.10和10.9的时候一直用MultiBeast的声卡驱动.现在El Captain版本的MultiBeast还没有出, 7.5版本选择好声卡驱动building的时候软件报错退出. 然后开始了漫长的尝试各种声卡驱动历程, 远景大神和外国大神提供的显卡驱动,我用Kext Wizard安装并且修复权限后,能出声音, 但是出声大概5秒后开始噪音,然后卡顿. 安装VoodooHDA 2.8.8重启,还没进入桌面就很大噪音发出来.同样没法用. 最后尝试到Voodoo_HDA_2.8.5_MAV.pkg,还算可以, 就是启动载入桌面前有一声爆音, 其他还可以. 不算完美,也能用吧.至少不卡顿和没有噪音. Noppoo的机械键盘与MAC osx不兼容,需要安装大神只做好的驱动和软件, 参考IOUSBHIDDriverDescriptorOverride, 下载最新的IOUSBHIDDriver, 安装后重启, 下载KeyRemap4MacBook, 安装后运行,如果不安装这个, ?和 + 等键打不出来.]]></content>
+      <tags>
+        <tag>黑苹果</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python模拟登陆京东]]></title>
+    <url>%2F2016%2F08%2F15%2Flogin-jd%2F</url>
+    <content type="text"><![CDATA[首次登录需要手动输入验证码 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#!/usr/bin/env python# -*- coding: utf-8 -*-# @Date : 2015-10-11 19:10:06import sysreload(sys)sys.setdefaultencoding('utf-8')import requestsfrom bs4 import BeautifulSoupimport timeimport osimport jsonurl = 'https://passport.jd.com/uc/login's = requests.session()data = &#123; 'chkRememberMe': 'on', 'loginname': 'xxxx', 'loginpwd': 'xxxxx', 'machineCpu': '', 'machineDisk': '', 'machineNet': '', 'nloginpwd': 'xxxxxx'&#125;if os.path.exists('jdcookie'): with open('jdcookie') as f: cookie = json.load(f) s.cookies.update(cookie)else: req = s.get(url) soup = BeautifulSoup(req.text, "html.parser") items = soup.select('form#formlogin &gt; input') uuid = items[0].get('value').encode('utf-8') data['uuid'] = uuid input_name = items[-1].get('name').encode('utf-8') input_value = items[-1].get('value').encode('utf-8') data[input_name] = input_value verify_url = soup.find('img', id='JD_Verification1')[ 'src2'] + '&amp;yys=' + str(int(time.time() * 1000)) print verify_url img = s.get(verify_url) f = open('image.jpg', 'wb') f.write(img.content) f.close() print 'input code:' authcode = raw_input() data['authcode'] = authcode print data postreq = s.post( 'https://passport.jd.com/uc/loginService?version=2015', data=data) postreq.encoding = 'gbk' print postreq.text if 'success' in postreq.text: with open('jdcookie', 'w') as f: json.dump(s.cookies.get_dict(), f)]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python模拟登陆知乎]]></title>
+    <url>%2F2016%2F08%2F11%2Flogin-zhihu%2F</url>
+    <content type="text"><![CDATA[第一次登陆的时候需要手动输入验证码,之后用cookie登陆. 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354#!/usr/bin/env python# -*- coding: utf-8 -*-# @Date : 2015-11-12 20:08:49import sysreload(sys)sys.setdefaultencoding('utf-8')import requestsfrom bs4 import BeautifulSoupimport timeimport jsonimport osurl = 'http://www.zhihu.com'loginURL = 'http://www.zhihu.com/login/email'headers = &#123; "User-Agent": 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:41.0) Gecko/20100101 Firefox/41.0', "Referer": "http://www.zhihu.com/", 'Host': 'www.zhihu.com',&#125;data = &#123; 'email': 'xxxxxx@gmail.com', 'password': 'xxxxxxxxx', 'rememberme': "true",&#125;s = requests.session()if os.path.exists('cookiefile'): with open('cookiefile') as f: cookie = json.load(f) s.cookies.update(cookie) req1 = s.get(url, headers=headers) # 建立一个zhihu.html文件,用于验证是否登陆成功 with open('zhihu.html', 'w') as f: f.write(req1.content)else: req = s.get(url, headers=headers) print req soup = BeautifulSoup(req.text, "html.parser") xsrf = soup.find('input', &#123;'name': '_xsrf', 'type': 'hidden'&#125;).get('value') data['_xsrf'] = xsrf timestamp = int(time.time() * 1000) captchaURL = 'http://www.zhihu.com/captcha.gif?=' + str(timestamp) print captchaURL with open('zhihucaptcha.gif', 'wb') as f: captchaREQ = s.get(captchaURL) f.write(captchaREQ.content) loginCaptcha = raw_input('input captcha:\n').strip() data['captcha'] = loginCaptcha print data loginREQ = s.post(loginURL, headers=headers, data=data) if not loginREQ.json()['r']: print s.cookies.get_dict() with open('cookiefile', 'wb') as f: json.dump(s.cookies.get_dict(), f) else: print 'login fail']]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python抓取网易云音乐最新评论和评论总数]]></title>
+    <url>%2F2015%2F09%2F30%2Fnet-music-comment%2F</url>
+    <content type="text"><![CDATA[123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263#!/usr/bin/env python# -*- coding: utf-8 -*-import requestsimport jsonimport osimport base64from Crypto.Cipher import AESfrom pprint import pprintdef aesEncrypt(text, secKey): pad = 16 - len(text) % 16 text = text + pad * chr(pad) encryptor = AES.new(secKey, 2, '0102030405060708') ciphertext = encryptor.encrypt(text) ciphertext = base64.b64encode(ciphertext) return ciphertextdef rsaEncrypt(text, pubKey, modulus): text = text[::-1] rs = int(text.encode('hex'), 16)**int(pubKey, 16) % int(modulus, 16) return format(rs, 'x').zfill(256)def createSecretKey(size): return (''.join(map(lambda xx: (hex(ord(xx))[2:]), os.urandom(size))))[0:16]url = 'http://music.163.com/weapi/v1/resource/comments/R_SO_4_30953009/?csrf_token='headers = &#123; 'Cookie': 'appver=1.5.0.75771;', 'Referer': 'http://music.163.com/'&#125;text = &#123; 'username': '邮箱', 'password': '密码', 'rememberLogin': 'true'&#125;#下面三个参数是通用的modulus = '00e0b509f6259df8642dbc35662901477df22677ec152b5ff68ace615bb7b725152b3ab17a876aea8a5aa76d2e417629ec4ee341f56135fccf695280104e0312ecbda92557c93870114af6c9d05c4f7f0c3685b7a46bee255932575cce10b424d813cfe4875d3e82047b97ddef52741d546b8e289dc6935b3ece0462db0a22b8e7'nonce = '0CoJUm6Qyw8W8jud'pubKey = '010001'text = json.dumps(text)secKey = createSecretKey(16)encText = aesEncrypt(aesEncrypt(text, nonce), secKey)encSecKey = rsaEncrypt(secKey, pubKey, modulus)data = &#123; 'params': encText, 'encSecKey': encSecKey&#125;req = requests.post(url, headers=headers, data=data)pprint(req.json()) #输出格式化的json数据#最新评论for content in req.json()['comments']: print content['content'].encode('utf-8') printprint req.json()['total'] 其中 Crypto需要用pip安装 1sudo pip install pycrypto 结果是 参考来源: 网易云音乐新登录API分析 网易云音乐常用API浅析 网易API]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[个人爬虫常用的几个知识点]]></title>
+    <url>%2F2015%2F09%2F29%2Fscrapy%2F</url>
+    <content type="text"><![CDATA[1 最常用beautifulsoup4的几个语法123from bs4 import BeautifulSoupsoup = BeautifulSoup(r.text) 如果搜索很多标签用 1soup.find_all('div', &#123;'class':True, 'id': True, 'title': True&#125;), 然用用for遍历, 搜索单个标签用1soup.find('div', &#123;'class':True, 'id': True, 'title': True&#125; ) find和find_all可以多次套用. 获取内容用 1item.get_text().encode('utf-8'), cmd显示的话用'gbk' 获取div标签的其他属性用 1item.get('href') 生成所有子标签的列表(list)用contains()函数, 1childtag = soup.contents() 常用作输出部分子标签的内容. 比如 1childtag[0].get_text(), childtag[-1].get_text() 2 python中生成13位时间戳的方法123import timeprint str(int(time.time() * 1000)) 3 requests的req.encoding如果没有获取到正确的编码可以用以下方法解决 1req.encoding = 'gb2312' 或者 1req.encoding = 'utf-8' 或者 1req.encoding = apparent_encoding 4 模拟登录的时候需要用requsts的senssion()函数.会话对象让你能够跨请求保持某些参数。它也会在同一个Session实例发出的所有请求之间保持cookies。 1s = requests.session()]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python实现虎扑（hoopchina）自动登录和点亮]]></title>
+    <url>%2F2015%2F09%2F25%2Flogin-hupu%2F</url>
+    <content type="text"><![CDATA[1:自动登录的代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778#!/usr/bin/env python# -*- coding: utf-8 -*-import requestsimport timeimport sysfrom bs4 import BeautifulSoup# 登录的头部信息my_headers = &#123; 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 'Host': 'passport.hupu.com', 'Referer': 'http://passport.hupu.com/pc/login?project=bbs&amp;from=pc', # 'Cookie ': "_cnzz_CV30020080=buzi_cookie%7Cdc42405e.675b.386f.8396.e1e33e42953b%7C-1; __gads=ID=15c18186521000ee:T=1443103052:S=ALNI_MZ84dig34sQNsPR7xvUlQlQ2H7pFg; _dacevid3=dc42405e.675b.386f.8396.e1e33e42953b; vjuids=8ee89313a.14fffb0fe83.0.32078b2e; vjlast=1443103834.1443103834.30; __dacewap=0xc8e6088248ba6cca; _HUPUSSOID=16672149-8304-4af5-8a1f-924337794477; _CLT=918ebe7bb324d8673460f7af1d701a5c; __dacevst=ce2e6fb5.b67f434d|1443110107591; CNZZDATA30020080=cnzz_eid%3D1429176686-1443106302-http%253A%252F%252Fbbs.hupu.com%252F%26ntime%3D1443106302; _cnzz_CV30020080=buzi_cookie%7Cdc42405e.675b.386f.8396.e1e33e42953b%7C-1"&#125;s = requests.session()# 用户名和密码的post信息data = &#123; 'username': '用户名', 'password': '密码',&#125;time.sleep(2)# 验证码verifyimg_url = 'http://passport.hupu.com/pc/verifyimg'f = open('img.jpg', 'wb')imgreq = requests.get(verifyimg_url)f.write(imgreq.content)f.close()# 验证码目前需要手动输入, 没有找到很精确辨识验证码的库.verifyimg = raw_input('verifyimg code:\n').strip()data['verifyCode'] = verifyimgloginURL = 'http://passport.hupu.com/pc/login/member.action'try: reqlogin = s.post(loginURL, data=data, headers=my_headers) print reqlogin.json() uid = str(reqlogin.json()['msg']['uid']) tag = str(reqlogin.json()['msg']['tag'])except Exception as e: print e sys.exit(1)url = 'http://passport.hupu.com/m/2/login/crossdomain?uid=' + \ uid + '&amp;freeLogin=true&amp;tag=' + tag# print urlreq = s.get(url, headers=my_headers)req = s.get('http://passport.hupu.com/pc/redirectJumpUrl', headers=my_headers)cookies = reqlogin.cookiestime.sleep(2)# 这个头部信息跟登录时候不一样,不能用那个的.liangle_headers = &#123;'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 'Host': 'bbs.hupu.com', 'Referer': 'http://bbs.hupu.com' &#125;# 用小黑屋测试, 这个版块每有相应有权限的账号是没法参观的.banzhu_URL = 'http://bbs.hupu.com/66'banzhu_req = requests.get(banzhu_URL, headers=liangle_headers, cookies=cookies)f = open('hupu.html', 'w')f.write(banzhu_req.content)banzhu_req.encoding = 'GB2312'soup = BeautifulSoup(banzhu_req.text, "html.parser")tiezi_lists = soup.find('table', id='pl').find_all('td', class_='p_title')for tiezi in tiezi_lists: print " ".join(tiezi.get_text().split()).encode('utf-8') 今天在v2ex上看到一个大神说,如果遇到验证码登录的网站,一般是现在chrome里面手动登陆一次,然后把cookie拷贝出来,放到头文件里面.我试了一下果然可以,比需要手动输入方便多了.不过这种方法有个缺陷就是不能短时间内登录多次. 2: 自动点亮的代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475#!/usr/bin/env python# -*- coding: utf-8 -*-import requestsimport timeimport sys# 登录的头部信息my_headers = &#123; 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 'Host': 'passport.hupu.com', 'Referer': 'http://passport.hupu.com/pc/login?project=bbs&amp;from=pc'&#125;s = requests.session()# 用户名和密码的post信息data = &#123; 'username': 'skywater', 'password': 'lanxiaomi',&#125;time.sleep(2)# 验证码verifyimg_url = 'http://passport.hupu.com/pc/verifyimg'f = open('img.jpg', 'wb')imgreq = requests.get(verifyimg_url)f.write(imgreq.content)f.close()# 验证码目前需要手动输入, 没有找到很精确辨识验证码的库.verifyimg = raw_input('verifyimg code:\n').strip()data['verifyCode'] = verifyimgloginURL = 'http://passport.hupu.com/pc/login/member.action'try: reqlogin = s.post(loginURL, data=data, headers=my_headers) print reqlogin.json()['code'] # uid = str(reqlogin.json()['msg']['uid']) # tag = str(reqlogin.json()['msg']['tag'])except Exception as e: print e sys.exit(1)# url = 'http://passport.hupu.com/m/2/login/crossdomain?uid=' + \# uid + '&amp;freeLogin=true&amp;tag=' + tag# # print url# req = s.get(url, headers=my_headers)# req = s.get('http://passport.hupu.com/pc/redirectJumpUrl', headers=my_headers)cookies = reqlogin.cookiestime.sleep(2)# 这个头部信息跟登录时候不一样,不能用那个的.liangle_headers = &#123;'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 'Host': 'bbs.hupu.com', 'Referer': 'http://bbs.hupu.com' &#125;# authorid是被点亮那个回帖人的数字id, fid是板块数字id, pid此回帖人的第多少个帖子, tid是这个主贴的数字id# 这些数据可以用bs4在网页中得到.liangle_data = &#123; 'authorid': '16920413', 'fid': '3913', 'pid': '6103', 'state': '1', 'tid': '12615933', 'token': '2e018203ea6a482c17847289989cf66f',&#125;liangle_req = s.post('http://bbs.hupu.com/ajax/lights.ajax.php', data=liangle_data, headers=liangle_headers, cookies=cookies)print liangle_req.content code是1表示点亮成功, num是被点亮的次数..]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Mac10.10系统下用python抓取淘宝时出现sslv3 alert handshake failure (_ssl.c:590)的解决办法]]></title>
+    <url>%2F2015%2F09%2F25%2Ftaobao-ssl3-error%2F</url>
+    <content type="text"><![CDATA[用python的requests库模拟抓取淘宝页面时会出现如下错误, 1requests.exceptions.SSLError: [SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:590) 换成自带的urllib也是一样报错,但是在windows系统下同样的代码正常,没有任何错误. 开始以为是openssl的问题, 把系统自带的openssl删除,然后用brew安装最新版本的openssl也不行. 根据stackoverflow大神的帖子,我试了很多方式,最终找到一个解决这个错误的方法. 在python中加入以下语句即可. 12import requests.packages.urllib3.util.ssl_requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS = 'ALL' 参考链接 : Stack Overflow]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[sublime text3 侧边栏字体的修改方法]]></title>
+    <url>%2F2015%2F09%2F24%2Fsublime-sidebar-font-size%2F</url>
+    <content type="text"><![CDATA[正常情况下sublime text3的侧边栏字体很小,不仔细看的话,很难看清楚. 需要把字号修改的大一些,网上搜索说,要下载一个插件然后打开主题的配置文件.我找到一个更简单的方法, 在sublime text3的属性里面找到Browse packages,打开插件所在文件夹,进入主题目录,找到要修改的配置文件,拖到sublime text中. 搜索”sidebar_label”, 在后面添加上 1"font.size": 16, windows系统下的话, 再加一句字体修改 1"font.face": "courier", 如果觉得行之间空间太挤,可以通过搜索”sidebar_tree”,将padding[8, 3]后面的数值改成5或者6.同一个class下面的”indent”是文件名的缩进, 也可以根据自己的情况修改一下. 最后这样,感觉好多了.]]></content>
+      <tags>
+        <tag>软件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python爬取贴吧楼中楼]]></title>
+    <url>%2F2015%2F09%2F19%2Ftieba-louzhonglou%2F</url>
+    <content type="text"><![CDATA[贴吧把每个帖子每页的楼主楼回复都放到一个json数据里面.首先是找出这个json连接,用charles抓包发现链接是这个样子的, 1http://tieba.baidu.com/p/totalComment?t=1442661243&amp;tid=3924896002&amp;fid=1627732&amp;pn=1&amp;see_lz=0 分析后发现,t = 1442661243这个数字是时间,可以用python得time.time()函数得到, tid=3924896002是帖子的数字没啥好说的,fid=1627732是论坛id我想应该是每个贴吧的数字id,比如dota2贴吧是:1627732. 用bs4分析每个帖子的数据,拼凑出这个链接来就ok. 这是代码,不过不完美.还需要用re把表情 语音什么的过滤掉.根据每个回帖的id遍历字典找到相应的楼中楼回复. 123456789101112131415161718192021222324252627#!/usr/bin/env python# -*- coding: utf-8 -*-import requestsfrom bs4 import BeautifulSoupimport jsonimport timeurl = 'http://tieba.baidu.com/p/4044110950'req = requests.get(url)soup = BeautifulSoup(req.text, "html.parser")forum_ids = soup.find('div', class_='p_postlist').find('div', class_='l_post l_post_bright j_l_post clearfix ').get('data-field')forum_id = json.loads(forum_ids)['content']['forum_id']localTime = int(time.time())commentURL = 'http://tieba.baidu.com/p/totalComment?t=' + str(localTime) + '&amp;tid=' + str(url.split('/')[-1]) + '&amp;fid='+str(forum_id)+'&amp;pn=1&amp;see_lz=0'print commentURLcommentreq = requests.get(commentURL)for k, v in commentreq.json()['data']['comment_list'].items(): for j in v['comment_info']: print j['username'].encode('utf-8'), print j['content'].encode('utf-8') print print]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[MAC10.10 下安装mySQL方法和设置]]></title>
+    <url>%2F2015%2F09%2F18%2Fmac10-10-install-mysql%2F</url>
+    <content type="text"><![CDATA[mac10.10下可以用brew安装mySQL, 1brew install mysql 安装完成后, 正常可以用 1mysql.server start 启动mysql. 但是我这次安装后提示, 12mysql.server startzsh: command not found: mysql.server 往前翻brew安装记录找到这个 1234567The `brew link` step did not complete successfullyThe formula built, but is not symlinked into /usr/localCould not symlink share/man/man8/mysqld.8/usr/local/share/man/man8 is not writable.You can try again using: brew link mysql 然后根据’Could not symlink share/man/man8/mysqld.8/usr/local/share/man/man8 is not writable.’搜到网上高手的解决办法,高手就是运行一个命令 1sudo chown -R `whoami` /usr/local 再启动mysql服务器就行了.进入mysql的命令是: 1mysql -uroot -p 初始登陆没有密码,直接按回车.如果需要设置密码可以用以下命令. 1/usr/local/bin/mysqladmin -u root password 'root' 分号里面root就是密码,可以根据需要改成自己的. 在mysql里面,如果输入错误命令后,再输入其他命令也无效了,输入”\c”后就可以重新返回命令行了. 还有就是windows下mysql安装完成后,需要设置环境变量后才能使用mysql命令. 在python中操作MySQL数据库,需要安装一个叫MySQL db的第三方库才行. 1sudo pip install MySQL-python]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[WebStorm安装jQuery自动提示和补全的方法]]></title>
+    <url>%2F2015%2F09%2F15%2Fwebstorm-jQuery%2F</url>
+    <content type="text"><![CDATA[webstorm这款IDE默认是不提示和补全jQuery语法的, 需要手动安装一下. 打开webstorm的设置,找到Languages &amp; Framewords – JavaScript – Libaraies, 点击Add选项, Name:里输入随便一个名字,比如jQuery, Frameswork type选择jQuery, 下面第一个加号选择从jQuery官网上下载来的压缩版文件,第二个加号输入 HTTP://api.jQuery.com 最后点击ok就可以了.]]></content>
+      <tags>
+        <tag>软件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[MAC快速清空废纸篓的方法]]></title>
+    <url>%2F2015%2F09%2F09%2Fempty-trash%2F</url>
+    <content type="text"><![CDATA[Mac系统一般情况下,清空废纸篓速度很慢.网上找到了一个快速清空的方法.打开item2,运行 12cd ~/.Trashrm -rf * 如果不行,可以用更狠的命令..(一不小心就可能把系统全删了..) 1sudo rm -rf]]></content>
+      <tags>
+        <tag>黑苹果</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[网上流传的yahoo工程师的初始化css设置]]></title>
+    <url>%2F2015%2F09%2F07%2Fyahoo-reset-css%2F</url>
+    <content type="text"><![CDATA[12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849/*css reset code *//**** 文字大小初始化,使1em=10px *****/body &#123;font-size:62.5%;&#125; /* for IE/Win */html&gt;body &#123;font-size:19px;&#125; /* for everything else *//*字体边框等初始化*/body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td &#123; padding: 0; margin: 0; &#125;table &#123; border-collapse: collapse; border-spacing: 0; &#125;fieldset,img &#123; border: 0; &#125; img &#123; display:block; float:left; &#125;address,caption,cite,code,dfn,th,var &#123; font-weight: normal; font-style: normal; &#125;ol,ul &#123; list-style: none; &#125;caption,th &#123; text-align: left; &#125;h1,h2,h3,h4,h5,h6 &#123; font-weight: normal; font-size: 100%; &#125;q:before,q:after &#123; content:''; &#125;abbr,acronym &#123; border: 0; &#125;a &#123;text-decoration:none;&#125;]]></content>
+      <tags>
+        <tag>html</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo主题Jacman配置文件的备份]]></title>
+    <url>%2F2015%2F09%2F06%2Fjacman-backup%2F</url>
+    <content type="text"><![CDATA[主配置文件 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293# Hexo Configuration## Docs: http://hexo.io/docs/configuration.html## Source: https://github.com/hexojs/hexo/# Sitetitle: 小信' Blogsubtitle:description:author: ClutchBearlanguage: zh-CNtimezone:# URL## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'url: http://playbear.github.ioroot: /permalink: :year/:month/:day/:title/permalink_defaults:# Directorysource_dir: sourcepublic_dir: publictag_dir: tagsarchive_dir: archivescategory_dir: categoriescode_dir: downloads/codei18n_dir: :langskip_render:# Writingnew_post_name: :title.md # File name of new postsdefault_layout: posttitlecase: false # Transform title into titlecaseexternal_link: true # Open external links in new tabfilename_case: 0render_drafts: falsepost_asset_folder: falserelative_link: falsefuture: truehighlight: enable: true line_number: true auto_detect: true tab_replace:# Category &amp; Tagdefault_category: uncategorizedcategory_map:tag_map:# Date / Time format## Hexo uses Moment.js to parse and display date## You can customize the date format as defined in## http://momentjs.com/docs/#/displaying/format/date_format: YYYY-MM-DDtime_format: HH:mm:ss# Pagination## Set per_page to 0 to disable paginationper_page: 10pagination_dir: page# Extensions## Plugins: http://hexo.io/plugins/## Themes: http://hexo.io/themes/theme: jacmanstylus: compress: true# Deployment## Docs: http://hexo.io/docs/deployment.htmldeploy: type: git repository: https://github.com/playbear/playbear.github.io.git branch: masterindex_generator: per_page: 5 ##首页默认10篇文章标题 如果值为0不分页archive_generator: per_page: 10 ##归档页面默认10篇文章标题 yearly: true ##生成年视图 monthly: true ##生成月视图tag_generator: per_page: 10 ##标签分类页面默认10篇文章category_generator: per_page: 10 ###分类页面默认10篇文章feed: type: atom ##feed类型 atom或者rss2 path: atom.xml ##feed路径 limit: 20 ##feed文章最小数量 主题配置文件: 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133##### Menumenu: Home: / Archives: /archives About: /about## you can create `tags` and `categories` folders in `../source`.## And create a `index.md` file in each of them.## set `front-matter`as## layout: tags (or categories)## title: tags (or categories)## ---#### Widgetswidgets:- category- tag- links- douban- rss## provide seven widgets:category,tag,rss,archive,tagcloud,links,weibo,douban#### RSSrss: /atom.xml ## RSS address.#### Imageimglogo: enable: false ## display image logo true/false. src: #img/logo.png ## `.svg` and `.png` are recommended,please put image into the theme folder `/jacman/source/img`.favicon: img/favicon.ico ## size:32px*32px,`.ico` is recommended,please put image into the theme folder `/jacman/source/img`.apple_icon: #img/jacman.jpg ## size:114px*114px,please put image into the theme folder `/jacman/source/img`.author_img: #img/author.jpg ## size:220px*220px.display author avatar picture.if don't want to display,please don't set this.banner_img: #img/banner.jpg ## size:1920px*200px+. Banner Picture### Theme Colortheme_color: theme: '#21272D' ##the defaut theme color is blue# 代码高亮主题# available: default | nighthighlight_theme: night#### index post is expanding or notindex: expand: true ## default is unexpanding,so you can only see the short description of each post. excerpt_link: Read Moreclose_aside: false #close sidebar in post page if truemathjax: false #enable mathjax if true### Creative Commons License Support, see http://creativecommons.org/### you can choose: by , by-nc , by-nc-nd , by-nc-sa , by-nd , by-sa , zerocreative_commons: none#### Author informationauthor: intro_line1: #"Hello ,I'm Larry Page in Google." ## your introduction on the bottom of the page intro_line2: #"This is my blog,believe it or not." ## the 2nd line weibo: ## e.g. wuchong1014 or 2176287895 for http://weibo.com/2176287895 weibo_verifier: ## e.g. b3593ceb Your weibo-show widget verifier ,if you use weibo-show it is needed. tsina: ## e.g. 2176287895 Your weibo ID,It will be used in share button. douban: ## e.g. wuchong1014 or your id for https://www.douban.com/people/wuchong1014 zhihu: ## e.g. jark for http://www.zhihu.com/people/jark email: ## e.g. imjark@gmail.com twitter: ## e.g. jarkwu for https://twitter.com/jarkwu github: ## e.g. wuchong for https://github.com/wuchong facebook: ## e.g. imjark for https://facebook.com/imjark linkedin: ## e.g. wuchong1014 for https://www.linkedin.com/in/wuchong1014 google_plus: ## e.g. "111190881341800841449" for https://plus.google.com/u/0/111190881341800841449, the "" is needed! stackoverflow: ## e.g. 3222790 for http://stackoverflow.com/users/3222790/jark## if you set them, the corresponding share button will show on the footer#### Toctoc: article: true ## show contents in article. aside: true ## show contents in aside.## you can set both of the value to true of neither of them.## if you don't want display contents in a specified post,you can modify `front-matter` and add `toc: false`.#### Linkslinks: 我的github: https://github.com/playbear 我的知乎: http://www.zhihu.com/people/ClutchBear#### Commentduoshuo_shortname: clutchbeardisqus_shortname: ## e.g. wuchong your disqus short name.#### Share buttonjiathis: enable: false ## if you use jiathis as your share tool,the built-in share tool won't be display. id: ## e.g. 1889330 your jiathis ID. tsina: ## e.g. 2176287895 Your weibo id,It will be used in share button.#### Analyticsgoogle_analytics: enable: false id: ## e.g. UA-46321946-2 your google analytics ID. site: ## e.g. wuchong.me your google analytics site or set the value as auto.## You MUST upgrade to Universal Analytics first!## https://developers.google.com/analytics/devguides/collection/upgrade/?hl=zh_CNbaidu_tongji: enable: false sitecode: ## e.g. e6d1f421bbc9962127a50488f9ed37d1 your baidu tongji site codecnzz_tongji: enable: false siteid: ## e.g. 1253575964 your cnzz tongji site id#### MiscellaneousShowCustomFont: false ## you can change custom font in `variable.styl` and `font.styl` which in the theme folder `/jacman/source/css`.fancybox: true ## if you use gallery post or want use fancybox please set the value to true.totop: true ## if you want to scroll to top in every post set the value to true#### Custom Searchgoogle_cse: enable: false cx: ## e.g. 018294693190868310296:abnhpuysycw your Custom Search ID.## https://www.google.com/cse/## To enable the custom search You must create a "search" folder in '/source' and a "index.md" file## set the 'front-matter' as## layout: search## title: search## ---baidu_search: ## http://zn.baidu.com/ enable: false id: ## e.g. "783281470518440642" for your baidu search id site: http://zhannei.baidu.com/cse/search ## your can change to your site instead of the default sitetinysou_search: ## http://tinysou.com/ enable: false id: ## e.g. "4ac092ad8d749fdc6293" for your tiny search id 其中Rss需要按装插件: 1npm install hexo-generator-feed@1 --save 参考: Jacman基于Pacman修改的Hexo主题 如何使用 Jacman 主题]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[time.strftime()用法]]></title>
+    <url>%2F2015%2F09%2F02%2Ftime-strftime-fuction%2F</url>
+    <content type="text"><![CDATA[参考 链接 和 链接 描述Python time strftime() 函数接收以时间元组，并返回以可读字符串表示的当地时间，格式由参数format决定。 语法strftime()方法语法： time.strftime(format[, t]) 说明python中时间日期格式化符号： %y 两位数的年份表示（00-99）%Y 四位数的年份表示（000-9999）%m 月份（01-12）%d 月内中的一天（0-31）%H 24小时制小时数（0-23）%I 12小时制小时数（01-12）%M 分钟数（00=59）%S 秒（00-59）%a 本地简化星期名称%A 本地完整星期名称%b 本地简化的月份名称%B 本地完整的月份名称%c 本地相应的日期表示和时间表示%j 年内的一天（001-366）%p 本地A.M.或P.M.的等价符%U 一年中的星期数（00-53）星期天为星期的开始%w 星期（0-6），星期天为星期的开始%W 一年中的星期数（00-53）星期一为星期的开始%x 本地相应的日期表示%X 本地相应的时间表示%Z 当前时区的名称%% %号本身 实例 ###获取时间的方法 12345678910111213141516171819202122232425&gt;&gt;&gt;import time&gt;&gt;&gt;this_time=time.localtime()&gt;&gt;&gt; this_timetime.struct_time(tm_year=2013, tm_mon=6, tm_mday=6, tm_hour=13, tm_min=42, tm_sec=38, tm_wday=3, tm_yday=157, tm_isdst=0)&gt;&gt;&gt; type(this_time)&lt;type 'time.struct_time'&gt;&gt;&gt;&gt; this_year=this_time[0]&gt;&gt;&gt; this_year2013&gt;&gt;&gt; for time in this_time:... print time...20136613423831570time.strftime('%Y-%m-%d %T',time.localtime(time.time()) # 2014-09-04 23:42:34 取过去具体时间的方法: 12345678910import time #取一天前的当前具体时间time.strftime('%Y-%m-%d %T',time.localtime(time.time()-24*60*60)) #取20天前的当前具体时间time.strftime('%Y-%m-%d %T',time.localtime(time.time()-20*24*60*60)) #取20天前当前具体时间的前2小时time.strftime('%Y-%m-%d %T',time.localtime(time.time()-20*24*60*60-2*60*60))]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[知乎上值得我学习的python回答 一]]></title>
+    <url>%2F2015%2F09%2F02%2Fzhihu-login%2F</url>
+    <content type="text"><![CDATA[Lambda表达式有何用处？如何使用？原文链接点我 ###涛吴:简单来说，编程中提到的 lambda 表达式，通常是在需要一个函数，但是又不想费神去命名一个函数的场合下使用，也就是指匿名函数。这一用法跟所谓 λ 演算（题目说明里的维基链接）的关系，有点像原子弹和质能方程的关系，差别其实还是挺大的。 不谈形式化的 λ 演算，只说有实际用途的匿名函数。先举一个普通的 Python 例子：将一个 list 里的每个元素都平方： map( lambda x: x*x, [y for y in range(10)] ) 这个写法要好过 def sq(x): return x * x map(sq, [y for y in range(10)]) ，因为后者多定义了一个（污染环境的）函数，尤其如果这个函数只会使用一次的话。而且第一种写法实际上更易读，因为那个映射到列表上的函数具体是要做什么，非常一目了然。如果你仔细观察自己的代码，会发现这种场景其实很常见：你在某处就真的只需要一个能做一件事情的函数而已，连它叫什么名字都无关紧要。Lambda 表达式就可以用来做这件事。 进一步讲，匿名函数本质上就是一个函数，它所抽象出来的东西是一组运算。这是什么意思呢？类比 a = [1, 2, 3] 和 f = lambda x : x + 1 ，你会发现，等号右边的东西完全可以脱离等号左边的东西而存在，等号左边的名字只是右边之实体的标识符。如果你能习惯 [1, 2, 3] 单独存在，那么 lambda x : x + 1 也能单独存在其实也就不难理解了，它的意义就是给「某个数加一」这一运算本身。 现在回头来看 map() 函数，它可以将一个函数映射到一个可枚举类型上面。沿用上面给出的 a 和 f，可以写：map(f, a)也就是将函数 f 依次套用在 a 的每一个元素上面，获得结果 [2, 3, 4]。现在用 lambda 表达式来替换 f，就变成： map( lambda x : x + 1, [1, 2, 3] ) 会不会觉得现在很一目了然了？尤其是类比 a = [1, 2, 3] r = [] for each in a: r.append(each+1) 这样的写法时，你会发现自己如果能将「遍历列表，给遇到的每个元素都做某种运算」的过程从一个循环里抽象出来成为一个函数 map，然后用 lambda 表达式将这种运算作为参数传给 map 的话，考虑事情的思维层级会高出一些来，需要顾及的细节也少了一点。Python 之中，类似能用到 lambda 表达式的「高级」函数还有 reduce、filter 等等，很多语言也都有这样的工具（不过这些特性最好不要在 Python 中用太多，[原因详见] (http://www.zhihu.com/question/19794855/answer/12987428) 的评论部分）。这种能够接受一个函数作为参数的函数叫做「高阶函数」（higher-order function），是来自函数式编程（functional programming）的思想。 和其他很多语言相比，Python 的 lambda 限制多多，最严重的当属它只能由一条表达式组成。这个限制主要是为了防止滥用，因为当人们发觉 lambda 很方便，就比较容易滥用，可是用多了会让程序看起来不那么清晰，毕竟每个人对于抽象层级的忍耐 / 理解程度都有所不同。]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[sublime bakcup]]></title>
+    <url>%2F2015%2F09%2F02%2Fsublime-backup%2F</url>
+    <content type="text"><![CDATA[setting-user{ &quot;caret_style&quot;: &quot;wide&quot;, &quot;default_encoding&quot;: &quot;UTF-8&quot;, &quot;draw_white_space&quot;: &quot;all&quot;, &quot;font_face&quot;: &quot;Source Code Pro&quot;, &quot;font_size&quot;: 16, &quot;ignored_packages&quot;: [ &quot;Markdown&quot;, &quot;Vintage&quot; ], &quot;line_padding_bottom&quot;: 1, &quot;line_padding_top&quot;: 1, &quot;match_brackets&quot;: true, &quot;match_brackets_angle&quot;: true, &quot;match_brackets_braces&quot;: true, &quot;match_brackets_content&quot;: true, &quot;match_brackets_square&quot;: true, &quot;save_on_focus_lost&quot;: true, &quot;soda_classic_tabs&quot;: true, &quot;tab_size&quot;: 4, &quot;theme&quot;: &quot;Soda Dark 3.sublime-theme&quot;, &quot;translate_tabs_to_spaces&quot;: true, &quot;trim_automatic_white_space&quot;: true, &quot;trim_trailing_white_space_on_save&quot;: true } color_scheme:made of code 下载地址: 1https://github.com/kumarnitin/made-of-code-tmbundle/ 如果下载失败可以新建一个文本文件,把代码拷贝保存到文本文件里面,然后改名成made of Code.tmTheme 使用方法: 打开perferences–brow package,将Theme - Soda文件夹拷贝进入，然后就可以在Preferences -&gt; Color Scheme选择made of code。 theme下载地址:http://buymeasoda.github.io/soda-theme/ git clone https://github.com/buymeasoda/soda-theme/ “Theme - Soda” 下载完成后,打开perferences–brow package,将Theme - Soda文件夹拷贝进入,然后在setting-user设置文件中加入一行,“theme”: “Soda Dark 3.sublime-theme”,之后重启sublime text]]></content>
+      <tags>
+        <tag>软件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[给定数字N的阶乘N!的末尾有多少个0]]></title>
+    <url>%2F2015%2F09%2F02%2Fpython-jiecheng%2F</url>
+    <content type="text"><![CDATA[当n到二三十时候,N!已经非常大了,会溢出.肯定不能用直接计算出阶乘的方式来统计0的个数. 通常用1到n的数字中,每个数字分解出2和5的个数,因为2 * 5 = 10因为2个数非常多,因此只要算出5的个数就可以了 1234567def zero_num(N): count = 0 for j in range(1, N + 1): while j % 5 == 0: j /= 5 count += 1 return b]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[pythontip 网站难题答案汇总]]></title>
+    <url>%2F2015%2F09%2F02%2Fpython-tiaozhan%2F</url>
+    <content type="text"><![CDATA[pythontip 网站的挑战python题目中有些很难和需要算法来解出. 9:给你两个正整数a和b， 输出它们的最大公约数。解题思路:用辗转相除法 1234567if a &lt; b: a, b = b, awhile b: a, b = b, a % bprint a 11:给你一个正整数列表 L, 如 L=[2,8,3,50], 输出L内所有数字的乘积末尾0的个数,如样例L的结果为2.(提示:不要直接相乘,数字很多,可能溢出)思路: 利用每个数字包含2和5的个数来判断,存在一对2 * 5 就是一个0 1234567891011a, b = 0, 0for i in L: j = i while i % 2 == 0: i /= 2 a += 1 while j % 5 == 0: j /= 5 b += 1print min(a, b) 12:给你一个正整数列表 L, 如 L=[2,8,3,50], 判断列表内所有数字乘积的最后一个非零数字的奇偶性,奇数输出1,偶数输出0. 如样例输出应为012345678910111213141516a, b = 0, 0for i in L: j = i while i % 2 == 0: i /= 2 a += 1 while j % 5 == 0: j /= 5 b += 1if a &gt; b: print 0else: print 1 13: 光棍们对1总是那么敏感，因此每年的11.11被戏称为光棍节。鄙人光棍几十载，光棍自有光棍的快乐。让我们勇敢面对光棍的身份吧，####现在就证明自己：给你一个整数a，数出a在二进制表示下1的个数，并输出。 12345count = 0while a: count += a % 2 a /= 2print count 20:信息加密####给你个小写英文字符串a和一个非负数b(0&lt;=b&lt;26), 将a中的每个小写字符替换成字母表中比它大b的字母。 ####这里将字母表的z和a相连，如果超过了z就回到了a。例如a=”cagy”,b=3, 则输出 fdjb 12345678out_string = ''for i in a: if ord(i) + b &lt;= ord('z'): out_string += chr(ord(i)+b) else: out_string += chr(ord(i)+b-26)print out_string]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[几个新的好用的适合我的Sublime Text3插件]]></title>
+    <url>%2F2015%2F08%2F30%2Fnew_sublime_plugin%2F</url>
+    <content type="text"><![CDATA[1: Anaconda作用: Anaconda把PyFlakes, pep8 和 McCabe以插件的方式集成起来,实现语法提示 pep8检查 自动完成等功能.安装Anaconda后，通过配置即可完成一个良好的Python开发环境。 主要的一个配置是: 忽略AutoFormat PEP8中E501(单行代码长度检查)的提示: “pep8_ignore”:[“E501”] 下载地址和介绍: anaconda 安装方法: 通过package control 来安装. 2: DashDoc作用: 在sublime text中调用dash,直接查找python的关键字用法和参数等. 快捷键: 快捷键是 Ctrl + H,注意在Mac osX下面也是Ctrl不是command 下载地址和介绍: DashDoc 安装方法: 主要是通过package control安装 3: ctags作用: 实现函数的跳转,即在中型大型项目中迅速查找到某个函数的初始定义. 下载地址和介绍: CTags 安装方法: 通过package control在sublime text中安装,还要通过brew install ctags安装到系统中. 一个安装和使用的百度经验: Sublime Text2/3怎样在Mac OSX中配置CTags插件]]></content>
+      <tags>
+        <tag>软件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[腾讯视频评论动态网页评论的抓取]]></title>
+    <url>%2F2015%2F08%2F27%2Ftencent-vido-comment%2F</url>
+    <content type="text"><![CDATA[12345678910111213141516171819202122232425262728293031#!/usr/bin/env python# -*- coding: utf-8 -*-# @Date : 2015-08-23 20:03:51# @Author : Xin(skywater@gmail.com)# @Link : playbear.github.ioimport requestsfrom bs4 import BeautifulSoupimport jsonurl = 'http://v.qq.com/cover/q/qviv9yyjn83eyfu/c0017ivdw3z.html'my_headers = &#123;'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36'&#125;req = requests.get(url)soup = BeautifulSoup(req.text, "lxml")ji_shu = soup.find_all('a', class_='album_link')for ji in ji_shu: num = ji.get_text().encode('utf-8').strip() ji_url = 'http://sns.video.qq.com/fcgi-bin/video_comment_id?otype=json&amp;op=3&amp;vid=' + ji.get('id') ji_req = requests.get(ji_url) ji_id = json.loads(ji_req.content.split('=')[1][:-1])['comment_id'] comment_url = 'http://coral.qq.com/article/' + ji_id.encode('utf-8') + '/comment?commentid=0&amp;reqnum=10' comment_req = requests.get(comment_url, headers=my_headers) for i in comment_req.json()['data']['commentid']: print '第%s集' % num, i['userinfo']['nick'], i['timeDifference'] print i['content'] print raw_input()]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[selenium所需要的chromedriver的安装方法]]></title>
+    <url>%2F2015%2F08%2F25%2Fchromedriver-path%2F</url>
+    <content type="text"><![CDATA[selenium是一个常用分析javascript动态网页的python第三方库.在mac下安装很简单, 1sudo pip install selenium 但是在运行示例代码时候会提示错误 123456789#!/usr/bin/env python# -*- coding: utf-8 -*-import osfrom selenium import webdriverdriver = webdriver.Chrome()driver.get("http://google.com")driver.quit() 1selenium.common.exceptions.WebDriverException: Message: 'chromedriver' executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home 根据提示是没有下载chromedriver并把它放到path里面.搜索好久才找到详细的操作方法,下载很简单,官方有下载地址.mac下放到path的具体方法是: 打开finder,选择’前往’–’前往文件夹’,然后弹出的窗口输入 1/usr/bin 把解压缩好的chromedriver文件复制拷贝到bin文件夹. 再运行示例代码就弹出一个chrome窗口,表示运行成功.]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[模拟登陆sina微博]]></title>
+    <url>%2F2015%2F08%2F25%2Flogin-weibo%2F</url>
+    <content type="text"><![CDATA[123456789101112131415161718192021222324#!/usr/bin/env python# -*- coding: utf-8 -*-import requestsfrom bs4 import BeautifulSoupurl = 'http://login.weibo.cn/login/'my_headers = &#123;'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.155 Safari/537.36'&#125;post_data = &#123;'mobile': 'roc100year@gmail.com', 'backURL': 'http://weibo.cn/', 'backTitle': u'微博', 'submit': u'登录', 'remember': 'on', 'tryCount': '' &#125;html = requests.get(url, headers=my_headers).contentsoup = BeautifulSoup(html, "html.parser")password = soup.find('input', &#123;'type': 'password'&#125;).get('name')vk = soup.find('input', &#123;'name': 'vk'&#125;).get('value')print password, vkpost_data[password] = 'xxxxx'post_data['vk'] = vknew_html = requests.post(url, data=post_data).contentprint new_html]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Python2.7 常用第三方库的安装方法]]></title>
+    <url>%2F2015%2F08%2F23%2F3rd_lib%2F</url>
+    <content type="text"><![CDATA[1: 安装PIL或者PILLOW的方法:PIL是Python Imaging Library的简写,是Python中最常用的图像处理库. 如果是MAC 10.9.4系统的话, 用sudo easy_install PIL安装pil可能会出现错误,谷歌搜索的话,很多人都会出现这样那样的问题. pillow是pil的替代品,更容易安装.pillow的最新信息可以参考这里或者中文文档 安装方法: 12brew install libtiff libjpeg webp little-cms2sudo pip install pillow 使用方法:在需要import Image,ImageDraw的地方用下面的语句代替 1from PIL import Image,ImageDraw 2: 安装和使用virtualenvvirtualenv 用来创建隔离的Python环境。它会创建一个拥有独立安装目录的python环境，该隔离环境不会与其他virtualenv环境共享模块（可选择是否访问全局库目录）。 安装: 1pip install virtualenv 简单使用: 12345mkdir testdircd testdirvirtualenv venv --distribute #初始化. venv/bin/activate 激活deactivate 退出 ###3: MySQL安装MySQL是目前最流行的开源数据库之一. 安装: 12brew intall MySQL #系统的Mysqlsudo ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future pip install mysql-python #python的MySQL 使用: 12345678 mysql.server start``` ### 4: Pygame安装需要去官方(http://www.pygame.org/download.shtml)下载pygame-1.9.2pre-py2.7-macosx10.7.mpkg.zip,解压缩后安装在mac10.10上才行.### 5: Scrapy安装 pip install Scrapy123很快安装成功,但是新建项目时候出错了 scrapy startproject tutorial1234![](http://ww3.sinaimg.cn/large/7293e3b7jw1evclegfxc9j20st086ju2.jpg)解决方法也很简单,根据错误提示谷歌搜索,打开第一个结果的stackoverflow网站,按照答案一步一步来就行. sudo rm -rf /Library/Python/2.7/site-packages/sixsudo rm -rf /System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/sixsudo pip install six``` 参考: stackoverflow真是好地方]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python + requests抓取百度百科时候遇到的乱码问题]]></title>
+    <url>%2F2015%2F08%2F15%2Fpython-requests-utf-8%2F</url>
+    <content type="text"><![CDATA[今天用python的requests抓住百度百科的老残游记条目时候出现乱码问题，试了好多方法都没有解决。最后通过谷歌搜索到大神的博客才懂，原来是requests库的问题。大神博客点这里 根据官方文档http://docs.python-requests.org/en/latest/api/#requests.Response.text，requests 是通过 http header 猜测页面编码，如果 header 中不存在 charset 就认为编码为 ISO-8859-1。我抓取的这个百度百度的headers的charset就没有设置编码。要手动指定成’utf-8’才行。 123456789101112131415161718#!/usr/bin/env python# -*- coding: utf-8 -*-import requestsfrom bs4 import BeautifulSoupimport codecsurl = 'http://baike.baidu.com/view/37202.htm'my_headers = &#123;'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.125 Safari/537.36', &#125;session = requests.session()req = session.get(url, headers=my_headers)req.encoding = 'utf-8'soup = BeautifulSoup(req.text, "html.parser")item = soup.find('div', &#123;'class': 'para'&#125;)print item.get_text().encode('utf-8') 参考：http://sh3ll.me/2014/06/18/python-requests-encoding/http://liguangming.com/python-requests-ge-encoding-from-headers]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[MAC下面修改hosts和获得最新hosts的方法]]></title>
+    <url>%2F2015%2F08%2F07%2Ffuck-gfw%2F</url>
+    <content type="text"><![CDATA[因为某些原因google搜索经常被屏蔽,但是工作需要经常使用.修改hosts是访问google最方便的方法之一. 1: 10.9.5的MAC下修改hosts的方法,搜索得来的, 在终端输入:1sudo /Applications/TextEdit.app/Contents/MacOS/TextEdit /etc/hosts 10.10 Yosemite 打开finder,选择前往文件夹,填入1/etc/hosts, 将hosts拖到桌面,修改.然后再覆盖进去. 2: 获取hosts的几种方法, github大神制作好的的hosts文件,直接拷贝就行了. 获取最新hosts的网站, 12https://github.com/vokins/simpleuhttps://github.com/racaljk/hosts 一个hosts不好用时候,及时更换成另外一个. 3: 用chrome浏览器的话,在设置里把默认搜索改成: https://www.google.com/search?q=%s 并且在浏览器中运行一次: https://www.google.com/ncr 防止自动跳转到google.com.hk 4: 日常科学上网用shadowsocks,官网点这里,安装运行后,免费得ss网站上获取服务器和密码 大神总结的翻墙小结.各种系统的都有,这里是连接]]></content>
+      <tags>
+        <tag>科学上网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[用request和beautisoup登录、签到v2ex]]></title>
+    <url>%2F2015%2F08%2F07%2Flogin-v2ex%2F</url>
+    <content type="text"><![CDATA[代码如下，123456789101112131415161718192021222324252627282930313233343536373839404142#!/usr/bin/env python# -*- coding: utf-8 -*-import requestsfrom bs4 import BeautifulSoupimport timeurl = 'http://www.v2ex.com'my_headers = &#123;'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.125 Safari/537.36', 'Referer': 'http://www.v2ex.com/signin', 'Host': 'www.v2ex.com', &#125;login_data = &#123;'u': 'roc100year@gmail.com', 'p': '', 'next': '/' &#125;time.sleep(3)session = requests.session()url_login = url + '/signin'response = session.get(url_login, headers=my_headers)soup = BeautifulSoup(response.content, "html.parser")once = soup.find('input', attrs=&#123;'name': 'once'&#125;).get('value').encode('utf-8')login_data['once'] = oncesession.post(url_login, login_data, headers=my_headers)daily = url + '/mission/daily'r = session.get(daily, headers=my_headers)soupDaily = BeautifulSoup(r.text, "html.parser")item = soupDaily.find('input', class_='super normal button').get('onclick')mission_url = url + item.split("'")[1]mission_r = session.get(mission_url, headers=my_headers) 对我而言，难点是 name是beautifulsoup.find()的关键字，不能用soup.find(name = ‘once’)查找需要的tag，要用soup.find（attrs={‘name’: ‘once’}）才行 通过chrome的f12–NetWork，找signin，再在下面找到Form Data的post数据 参考来源 ：模拟登录V2EX及进行签到]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Windows下配置开发环境的几个好用软件，console2和ipython]]></title>
+    <url>%2F2015%2F08%2F05%2Fconsole2-and-ipython%2F</url>
+    <content type="text"><![CDATA[Console2 Windows的命令终端CMD和Powershell有点简陋和不实用，console2这个软件就好多了。能设置成自己喜欢的字体、主题颜色什么的。 官方下载地址 ： 点击 配置和介绍：大神的博客 能输入汉字的主程序：github地址 主题颜色：github地址 ipython ipython能够逐行显示python代码的运行结果，能够更好的调试python代码，并且有tab自动补全功能。 安装主程序： 1pip install ipython 安装配色： 1pip install pyreadline]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[win10下面python的codecs模块写入txt文件，用记事本打开显示不换行bug]]></title>
+    <url>%2F2015%2F08%2F04%2Fwin10-codecs-bug%2F</url>
+    <content type="text"><![CDATA[今天用beautifulsoup爬取网页，把解析出的unicode格式的内容写到txt文本文件里面。发现用codecs模块写入的txt文件，用记事本打开后，死活不换行。f.write(‘\n’)不行，f.write(‘\n’.decode(‘utf-8’)也不行。谷歌了好久，也没有找出解决办法。 跟上海知乎群里的python大神 光大证券的唐老师咨询，他说他用f.write(‘\n’)可以换行。 这时候我怀疑是不是win10系统记事本的问题，把保存好的txt文件拖到sublime text3上打开，果然各种正常换行了。 看来，新出的win10系统还是有各种小bug啊。]]></content>
+      <tags>
+        <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[自己需要记住和时常复习的python要点和小技巧]]></title>
+    <url>%2F2015%2F06%2F29%2Fpython_tips%2F</url>
+    <content type="text"><![CDATA[不定时更新中,20141007最新更新 列出100以内被3整除的数更简单的方法:range(3,100,3) 删除读取文本文件换行回车的方法:line.strip() 判断字符串是否是回文的简单方法:def isPalindrome(s): return s == s[::-1] 字符串的一些方法: S.upper() #S中的字母大写 S.lower() #S中的字母小写 S.capitalize() #首字母大写 S.title() #每个单词首字母大写 S.count(str,,) #S字符串范围内str字符出现的次数 S.find(str,,) #S字符串范围内第一个str字符的索引 S.istitle() #每个单词首字母是否大写的，且其它为小写， S.isupper() #S中的字母是否全是大写 S.islower() #S中的字母是否全是小写 S.isalpha() #S中的字符是否只有字母组成 S.isalnum() #S中得字符是否只有字母或者数字组成 S.isdigit() #S中的字符是否只有数字组成 S.lower() #全部小写 S.upper() #全部大写 S.join(S1) #以S为分隔符,将S1中所有元素合并成一个新的字符串 S.strip() #去掉S前后的空格 S.replace(s1,s2) #将S中的s1用s2代替 在collections模块中有一个Counter类 Counter类的目的是用来跟踪值出现的次数。它是一个无序的容器类型，以字典的键值对形式存储，其中元素作为key，其计数作为value。计数值可以是任意的Interger（包括0和负数）。 例如:统计一个字符串中重复字母的在字母表最先出现的字符 12345678910111213from collections import Counterdef checkio(text): count = Counter([x for x in text.lower() if x.isalpha()]) m = max(count.values()) return sorted([x for (x, y) in count.items() if y == m])[0]if __name__ == "__main__": print(checkio("Hello World!")) print(checkio("How do you do?")) print(checkio(u"One")) print(checkio(u"Oops!")) counter的方法有增加(updata)和减少(subtract)两种: 比如: 123456count = Counter('which')count['h'] #结果显示:2count.update('witch')count.['h'] #结果显示:3 REB(括号)在正则表达式中有 3 种类型的括号方括号”[“内是需要匹配的字符,花括号”{“内是指定匹配字符的数量。 圆括号“(“ 则是用来分组的。C(插入符号)插入符号 “^” 表示正则式的开始。D(美元符号)美元符号“$” 表示正则式的结束。 注意:类似(com|net|org)的多选一,用圆括号. 年月日的匹配:yy-mm-dd &apos;^(1[9][0-9][0-9]|2[0][0-1][0-9]|[0-9][0-9])[\.-]?([1-9]|0[1-9]|1[0-2])[\.-]?([1-9]|0[1-9]|1[0-9]|2[0-9]|3[0-1])$&apos; 时间的匹配:hh:mm:ss &apos;^([0-9]|0[0-9]|1[0-9]|2[0-3])[:]([0-9]|0[0-9]|[0-6][0-9])[:]([0-9]|0[0-9]|[0-5][0-9])$&apos; ip地址的匹配: &apos;^(([01]?[0-9][0-9]?|2[0-4][0-9]|2[5][0-5])\.){3}([01]?[0-9][0-9]?|2[0-4][0-9]|2[5][0-5])$&apos; 字母 字符与ASCII数字对应的函数: ord（）将字符转换成ascii码数字 chr()将ascii码数字转换为字符 unichr()将ascii码整数返回成unicode字符 random.sample(list, n)通常用来产生不重复的n位数字print int(&apos;&apos;.join(map(str, random.sample(range(10), 10)))) #3571490628 enumerate的用法enumerate会将数组或列表组成一个索引序列。使我们再获取索引和索引内容的时候更加方便： 12for index，text in enumerate(list)): print index ,text]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[sublime text3 安装和设置]]></title>
+    <url>%2F2015%2F03%2F05%2Fst3-install%2F</url>
+    <content type="text"><![CDATA[Sublime Text3 是我最常用的python编辑器, 1: 安装Package Control,View–Show console,输入下面数据后回车:(参考来源: https://packagecontrol.io/installation#st3) import urllib.request,os,hashlib; h = &apos;eb2297e1a458f27d836c04bb0cbaf282&apos; + &apos;d0e7a3098092775ccb37ca9d6b2e4b7d&apos;; pf = &apos;Package Control.sublime-package&apos;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( &apos;http://packagecontrol.io/&apos; + pf.replace(&apos; &apos;, &apos;%20&apos;)).read(); dh = hashlib.sha256(by).hexdigest(); print(&apos;Error validating download (got %s instead of %s), please try manual install&apos; % (dh, h)) if dh != h else open(os.path.join( ipp, pf), &apos;wb&apos; ).write(by) 2: 安装插件,快捷键CMD + Shift + P,输入Install Package.卸载插件时输入: Remove Package 常用的插件包括: AutoPeP8: 自动格式化python代码 SublimeCodeIntel: python语法提示和自动完成 ConvertToUTF8: 顾名思义转换成UTF8编码格式 SideBarEnhancements: 侧边栏增强 SublimeTmpl: 新建文件模板 3: 修改快捷键,打开Perferences–Key Buildings User将这个内容复制进去保存1&#123; "keys": ["f5"], "command": "build" &#125;, 这样按F5就是编译了,当然以前的CMD + B(windows系统下面是Ctrl + B)也是可以的. 4: 其他参考以前写的 http://playbear.github.io/2015/09/02/sublime-backup/ 和 http://playbear.github.io/2014/08/13/sublime-plugin-sublime-tmpl/ 等]]></content>
+      <tags>
+        <tag>软件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[shadowsocks科学上网]]></title>
+    <url>%2F2015%2F02%2F15%2Fshadowsocks%2F</url>
+    <content type="text"><![CDATA[最近通过修改hosts访问google的方法越来越不好用,ip被封的越来越多.我开始通过shadowsocks科学上网了. 通常设置的方法和步骤如下: 1: 谷歌搜索shadowsocks,第一个就是在github的源代码链接, https://github.com/shadowsocks/shadowsocks 2: 在readme.md中可以找到各种系统的客户端,包括手机和电脑系统.我用的是黑苹果hackmac,下载安装名为shadowsocksx的客户端就行. 3: 在v2ex的shadowsock板块找到免费得ss账号,我最常用的是黑洞咖啡馆( https://xcafe.in/ )和MakeDieSS( http://mdss.mengsky.net/ )提供的免费账号. 4: 将免费账号填入shadowsocks客户端,选择自动代理模式就可以尽情的访问google github stackoverflow等网站了. 5: 通常免费网站的账号密码经常变化,如果发现没法继续科学上网,去这些网站找到新账号密码更新在客户端里面就行了.]]></content>
+      <tags>
+        <tag>科学上网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[磊科Q3刷机及SS翻墙总结]]></title>
+    <url>%2F2014%2F11%2F25%2Fnetcore-q3%2F</url>
+    <content type="text"><![CDATA[最近浏览v2ex发现一款不错的路由器,69元.可以刷机后在路由器里面直接设置shadowsocks翻墙.正好京东有快到期的京券.60元到手. 折腾了两天,刷坏了一台,当然可能没有全坏.我没有耐心搞了,京东换了一台新的.新的很容易刷成功了. 步骤:提示: Q3刷机过程比较慢,时刻观察ping 192.168.1.1 -t的结果.等ping值稳定后,再进行其他操作.1: 用这个帖子(网址点我)的提示,下载253w和Q3互刷固件,然后进入192.168.1.1,找到升级固件,刷成253W. 2: 根据这个帖子(网址点我),去 http://source.wifihell.com/bwq518/121_20140808/CN/K26RT-N/ 这个网址下载tomato-K26-1.28.121-MIPSR2-20140808.Hyzoom.RT_N5x-8M-VPN-IPv6-Max.trx这个适合Q3的固件,然后再235W的升级页面里面升级. 3: 刷成Tomato bwq518后,登陆192.168.1.1,这里需要注意:磊科Q3默认的登录用户名和密码都是guest,tomato默认的都是:admin.然后在基本设置里面勾选’反转端口顺序’. 4: 设置SS翻墙,高级设置里面”Tow透明代理”,然后把黑洞咖啡馆(网址点我)的ss服务器地址和密码填入. 1234567不要勾选以下几项：启用黑名单在线更新启用白名单启用 Tunlr DNS在线更新由于网络原因，在线更新如果失败，会导致 TOW无效。 5: 如果作为第二路由器,需要在’基本设置’–’网络设置’–’LAN设置’,删掉192.168.1.1,添加192.168.0.1,并且选择为br0.保存.慢慢等待路由器响应.然后在浏览器中用192.168.0.1登陆]]></content>
+      <tags>
+        <tag>系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ipad mini2 ios 8.1越狱和广告屏蔽]]></title>
+    <url>%2F2014%2F11%2F21%2Fios8-1-mini2%2F</url>
+    <content type="text"><![CDATA[越狱注意事项1: 用iTunes备份,如果应用不是在官方appstore下载的,iTunes是没法备份的,可以截图,越狱后在一个个安装 2:下载盘古越狱工具(或者太极越狱工具),如果越狱失败,可以先恢复ios固件,然后新系统重新越狱后,恢复备份. 3: 广告屏蔽, ios 8.1越狱后cydia里面一个源有广告,可以用ifile修改hosts,在后面添加 12345127.0.0.1 a.adorika.net127.0.0.1 a.ad-sys.com127.0.0.1 ads.glispa.com127.0.0.1 c.gltrkk.net127.0.0.1 hastrk3.com 参考:http://jailbreak.25pp.com/jiaocheng/yueyu_66924.html 普通app广告屏蔽也是在hosts里面添加字段 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354127.0.0.1 analytics.admob.com127.0.0.1 api.admob.com127.0.0.1 e.admob.com127.0.0.1 c.admob.com127.0.0.1 media.admob.com127.0.0.1 mm.admob.com127.0.0.1 mmv.admob.com127.0.0.1 p.admob.com127.0.0.1 r.admob.com127.0.0.1 config.adsage.cn127.0.0.1 config.adsage.com127.0.0.1 config.mobisage.cn127.0.0.1 config.minesage.com127.0.0.1 config.soqugame.com127.0.0.1 mobi.adsage.com127.0.0.1 trc.adsage.com127.0.0.1 mws.adsage.com127.0.0.1 api.domob.cn127.0.0.1 e.domob.cn127.0.0.1 r.domob.cn127.0.0.1 r.ow.domob.cn127.0.0.1 s.domob.cn127.0.0.1 sdl.domob.cn127.0.0.1 api.immob.cn127.0.0.1 adserving.immob.cn127.0.0.1 c1.guomob.com127.0.0.1 t3.guomob.com127.0.0.1 umeng.co127.0.0.1 umeng.com127.0.0.1 alog.umeng.co127.0.0.1 alog.umeng.com127.0.0.1 au.umeng.co127.0.0.1 au.umeng.com127.0.0.1 oc.umeng.co127.0.0.1 oc.umeng.com127.0.0.1 ex.umengcloud.com127.0.0.1 uyunad.com127.0.0.1 www.uyunad.com127.0.0.1 a-ad.adwo.com127.0.0.1 ad-count.adwo.com127.0.0.1 apiconfig.adwo.com127.0.0.1 static.adwo.com127.0.0.1 track.adwo.com127.0.0.1 r3 adwo.com127.0.0.1 googleads.g.doubleclick.net127.0.0.1 google-analytics.com127.0.0.1 ssl.google-analytics.com127.0.0.1 static.googleadsserving.cn127.0.0.1 mobads.baidu.com127.0.0.1 api.adcome.cn127.0.0.1 adbc.renren.com127.0.0.1 mob.adwhirl.com127.0.0.1 ios.ijinshan.com127.0.0.1 push.icastlewar.com 参考:http://jailbreak.25pp.com/jiaocheng/yueyu_66924.html 非官方软件app的下载1: 影梭即shadowsocks,在cydia里面搜索下载.主要作用是翻墙 2: GoodReader AVPlayerHD 欧陆字典 Calculator等软件在pp翻墙助手里面下载. 3: ifile的安装,首先在源里面添加 apt.178.com 然后搜索ifile后下载安装.主要作用是修改系统文件比如hosts 参考:http://bbs.25pp.com/forum.php?mod=viewthread&amp;tid=273064 4: photo manager pro 在pp助手里面可以下载, 作用是 重命名图片,建立图片文件夹.]]></content>
+      <tags>
+        <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[21一个挑战题的python解决方法]]></title>
+    <url>%2F2014%2F11%2F14%2Fpython-challene-2%2F</url>
+    <content type="text"><![CDATA[2) 一百万挑战：将 1,000,000 写成两个数的乘积，两个数都不包含零 123456for i in range(1, 500000): for j in range(1, 50000): if i * j == 1000000: if '0' not in str(i) and '0' not in str(j): print i, j break 结果是: 164 15625]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[YOSEMITE 10.10 安装记录]]></title>
+    <url>%2F2014%2F11%2F08%2Fyosemite-10-10%2F</url>
+    <content type="text"><![CDATA[2015年9月20日更新, 更新完10.10.5补丁后再安装声卡驱动(MultiBeast 7.3.0)才有效.Yosemite 10.10出来后,跟风安装了,但是总有各种各样的问题,比如键盘无效 声卡没法驱动等等,与10.9.5有很多不同的地方.折腾了好几天终于算是弄好了.自己将步骤记录一下,以后备用: 1. 下载 下载pcbeta论坛’七月流火’大神的u盘版yosemite(pcbeta链接),由于只提供了1021版本,需要自己转换成没有重装bug的1024版本. 在windows下运行smartvs.exe,打开1021 to 1024.svf,然后根据提示找到”黑苹果安装U盘.20141021.七月流火.10.10.dmg”(md5:82D2EBAC6FA794FD3147D0BD40371FCD),然后提取出”黑苹果安装U盘.20141024.七月流火.10.10.dmg”(md5:27F84982358D7C06AE2339EA950D7E6B) 运行transmac.exe, 将七月流火的yosemite恢复到u盘上. 2.分区 用10.9.3的u盘启动电脑,进入winpe,讲要安装黑苹果的硬盘分成两个分区,第一个分区大小为1g,剩下是第二个盘. 运行diskgenius, 用分区克隆工具将u盘的boot分区克隆到第一个分区.更换成10.10的安装u盘 3. 安装 重启电脑, 按del进入bios,硬盘模式改成achi,关闭vt-x选择u盘启动, 进入启动界面选择clover,然后选择安装10.10,图形界面出现后,选择’硬盘工具’,将前面分好的第二个分区格式化成’MAC OS 扩展(日志)’ 开始安装10.10,一步一步next到底.安装完成,重启,u盘启动,选择clover,选择硬盘mac启动.之后输入用户名密码,不要选择联网. 4. 驱动和设置 运行MultiBeast,选择drivers-network-realtek- realtekRTLxx v0.0.90,然后build,重启下载cover2953的Mac 版 MBR+GPT 分区专用 pkg 安装包(下载链接),解压缩安装到硬盘的启动盘中.将10.10安装u盘的efi拷贝到第一个分区中替换原来的.这样就可以硬盘直接启动clover了. 下载运行Clover Configurator,打开第一个分区也就是启动分区中的config.plist, 选择Boot选项,然后勾选kext-dev-mode=1, 选择Devices选择,在Audio处填入1,保存 重新运行MultiBeast,选择drivers-atheros,然后勾选ALC887/888b current v100302 和 optional efi installed bootloader support,选择build,重启 系统偏好设置—声音—输出,选择内置扬声器.这样就有声音了.声卡驱动步骤主要参考pcbeta论坛的帖子,请参考链接 5. 其他类似以前写的.]]></content>
+      <tags>
+        <tag>黑苹果</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[辗转相除法找最大公约数的python实现]]></title>
+    <url>%2F2014%2F11%2F06%2FGCD%2F</url>
+    <content type="text"><![CDATA[辗转相除法,参加维基百科:连接 最大公约数的python最常见算法: 1234567def gcd(a, b): if a &lt; b: a, b = b, a while b: a, b = b, a % b return a 最小公倍数就是 两个数的乘积除以最大公约数. 12def ICM(a, b): return a * b / GCD(a, b)]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[计算素数比较快的方法]]></title>
+    <url>%2F2014%2F10%2F03%2Ffast-prime%2F</url>
+    <content type="text"><![CDATA[计算素数里面除数最大值用(int(prime ** 0.5) +1) ,最好不要用(prime / 2 + 1).在素数值非常大的时候,这两者差距非常明显.比如104729的开方值:323 除以2的值是52365 再就是尽量用函数返回Ture Flase的判断, 例如: 求第10000个素数 1234567891011121314151617181920prime = 2number = 4def is_prime(num): for x in range(2, int((num ** 0.5)) + 1): if num % x == 0: return False return Truewhile 1: if is_prime(number): prime += 1 if prime == 10000: break number += 1print number 用时0.5秒得出结果:104729如果是 1234567891011121314151617181920prime = 2number = 4def is_prime(num): for x in range(2, int((num / 2)) + 1): if num % x == 0: return False return Truewhile 1: if is_prime(number): prime += 1 if prime == 10000: break number += 1print number 用时42秒,得出结果104729如果是 12345678910111213141516prime = 2number = 4while 1: flag = 0 for i in range(2, int(number ** 0.5) + 1): if number % i == 0: flag = 1 if flag == 0: prime += 1 if prime == 10000: break number += 1print number 用时3.0秒,得出结果104729]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[用python实现冒泡排序 选择排序 插入排序]]></title>
+    <url>%2F2014%2F08%2F31%2FAlgorithm_python%2F</url>
+    <content type="text"><![CDATA[冒泡法排序第一个循环倒序,相邻两个元素比较大小然后交换.第一次将最大的一个逐渐排序到列表最后一个位置. 1234567891011121314from __future__ import print_function, unicode_literals, divisionarry = [16, 134, 15, 1, 78, 10, 9]def bubble_sort(arry): for i in range(len(arry) - 1, 0, -1): for j in range(i): if arry[j] &gt; arry[j + 1]: arry[j], arry[j + 1] = arry[j + 1], arry[j]if __name__ == "__main__": bubble_sort(arry) print (arry) [1, 9, 10, 15, 16, 78, 134] 选择法排序第一个元素和后面所有元素对比,找到最小的一个,然后交换. 123456789101112131415161718from __future__ import print_function, unicode_literals, divisionarry = [16, 134, 15, 1, 78, 10, 9]def select_sort(arry): length = len(arry) for i in range(length - 1): sort_index = i for j in range(i, length): if arry[j] &gt; arry[sort_index]: sort_index = j arry[sort_index], arry[i] = arry[i], arry[sort_index]if __name__ == "__main__": select_sort(arry) print(arry) [1, 9, 10, 15, 16, 78, 134] 插入排序 最开始以第一个元素为准,第二个元素与第一个比较,排序.第三个与前两个比较然后排序.以此类推.1234567891011121314151617181920rom __future__ import print_function, unicode_literals, divisionarry = [17, 23, 20, 14, 12, 25, 1, 20, 81, 14, 11, 12]def select_sort(arry): length = len(arry) for i in range(length - 1): sort_index = i for j in range(i, length): if arry[j] &lt; arry[sort_index]: sort_index = j if sort_index != i: arry[sort_index], arry[i] = arry[i], arry[sort_index]if __name__ == "__main__": select_sort(arry) print(arry)` [1, 11, 12, 12, 14, 14, 17, 20, 20, 23, 25, 81]]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo的安装步骤(已经失效)]]></title>
+    <url>%2F2014%2F08%2F18%2Fhexo_install%2F</url>
+    <content type="text"><![CDATA[1.设置git的SSH公钥 打开终端,输入命令: ssh-keygen -t rsa -C &quot;skywater@gmail.com&quot; 继续输入命令: 12cd .SSH subl id_rsa.pub 拷贝SSH公钥到github账户的SSH keys里面. 输入命令: 12git config --global user.email "skywater@gmail.com"git config --global user.name "playbear" 2. 安装hexo环境,参考官网 安装node.js,打开终端,输入命令: 1brew install node 安装nvm,命令: 1curl https://raw.githubusercontent.com/creationix/nvm/v0.13.1/install.sh | bash 安装完成后重启终端,然后运行: 1nvm install 0.10 安装Hexo: 1npm install -g hexo 初始化Hexo: playbear.github.io12345cd playbear.github.iohexo initnpm installhexo ghexo d 3. 常用hexo命令n "new_file"(之后用mou编辑new_file.md)12hexo ghexo d 4. hexo版本更新1npm update -g 如果重装系统后的安装，在hexo g之后将备份的文件夹拷贝覆盖即可。]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[重新安装MAC后必做的设置步骤]]></title>
+    <url>%2F2014%2F08%2F15%2Fmac_reinstall%2F</url>
+    <content type="text"><![CDATA[1: 运行RealtekRTL81xx-0_0_90.pkg,安装显卡驱动. 2: 运行MultiBeast,选择Drivers—Audio—Realtek ALCXXX—Without DST—ALC887/888b Current v100302,安装声卡驱动. 3: 运行Appstore,升级到10.9.4. 4: 安装完成,重启. 5: 点击左上苹果标志,选择打开System Preferences 选择打开Network,选择Ethernet,自动获取ip变成绿色后,点击Apply 选择打开Mouse,去掉Scroll direction:natural的勾选,左侧两个速度拉到最大. 选择打开Desk&amp;Screen Saver,选择Screen Saver,Start after选择Never 选择打开Energy Saver, Computer sleep和Display sleep都拉到Never 选择打开Keyboard,选择Modifier Keys, Option key改成Command, Command key改成Option. 选择Shortcuts—Input Sources, 勾选Select the previous input source 并将Spotlight的快捷键勾选去掉 选择打开Security&amp;Privacy,点击左下角的锁标志,输入密码,点选Allow apps download from: Anywhere, 并将Put hard disks to sleep when possible和Wake for Ethernet network access的勾选去掉 6: Mac终端添加 sublime text 3打开方式,打开终端输入命令: 1sudo ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/bin/subl 7: 运行Appstore,下载并安装Xcode,运行然后点击agree.然后打开终端,输入命令,用来安装Command Line Tools(命令行工具): 1xcode-select --install 8: 安装brew: 1ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 9: 安装新版的iTerm2,命令行安装zsh 123456 curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh``` 更新zsh的命令: ``` upgrade_oh_my_zsh]]></content>
+      <tags>
+        <tag>黑苹果</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[sublime text插件tmpl的python模板]]></title>
+    <url>%2F2014%2F08%2F13%2Fsublime-plugin-sublime-tmpl%2F</url>
+    <content type="text"><![CDATA[1234#!/usr/bin/env python# -*- coding: utf-8 -*-# @Date : 2014-08-13 17:33:54# @Author : ClutchBear (roc100year@gmail.com)]]></content>
+      <tags>
+        <tag>软件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[contributions不显示在github上]]></title>
+    <url>%2F2014%2F08%2F11%2Fno-contributions%2F</url>
+    <content type="text"><![CDATA[最近不知道怎么搞的,hexo提交了茫茫多次到github上,但在github账号页面不显示contributions绿点.自己的努力没有显示出来,十分的不爽.尝试各种方法解决,甚至去hexo的github页面提交issues,别人回答我说,hexo提交后就会有contributions显示的.最后发现是.gitconfig不知道被哪个软件修改了,删掉.gitconfig配置文件.再终端重新建立一个就行了: 12git config --global user.name "你的名字"git config --global user.email "your_email@youremail.com" 最后转帖一个高手的文章:什么样的contributions会被Github计算在内？]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[测试Markdown语法]]></title>
+    <url>%2F2014%2F08%2F09%2Fto-be-continue%2F</url>
+    <content type="text"><![CDATA[什么是 MarkdownMarkdown 是一种方便记忆、书写的纯文本标记语言，用户可以使用这些标记符号以最小的输入代价生成极富表现力的文档粗体斜体 单行代码https://github.com/playbear/playbear.github.io.git 多行代码1234567@requires_authorizationclass SomeClass: def __init__(self) passif __name__ == '__main__': print 'hello world' 习书记说的特别好,接下来我补充几点: 第一点 这里省略一万字 第二点 这里省略两万字 第三点 这里省略三万字 强调 斜体 粗体链接 描述图片]]></content>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[备份sublime text3个人配置的插件Sublimall(已经无效)]]></title>
+    <url>%2F2014%2F08%2F07%2Fsublimall_intro%2F</url>
+    <content type="text"><![CDATA[最近浏览v2ex网站发现了一款sublime text3的插件,名字叫sublimall,主要作用是备份sublime text3的个人配置.很适合我这样,经常折腾黑苹果,经常格式化硬盘的人.sublimall的网站是https://sublimall.org 点击绿色的sign up for free按钮,输入账号密码等信息后在自己邮箱里面收取验证邮件. 在自己账号页面,左下角是email和API key信息 通过package control安装sublimall插件. sublimall会将配置和插件打包发送到这个网站上,用的压缩软件是7zip,因此需要安装7zip. 在终端输入: brew install p7zip 安装完成后,再输入: where is 7za 安装正常的话,会在终端显示: /usr/local/bin/7za 打开sublimall的setting-users//////////////////////////// //// Sublimall settings //// //////////////////////////// &quot;api_root_url&quot;: &quot;http://sublimall.org&quot;, &quot;api_upload_url&quot;: &quot;/api/upload/&quot;, &quot;api_retrieve_url&quot;: &quot;/api/retrieve/&quot;, //上面几行不用管 /////////////////////// //// User settings //// /////////////////////// &quot;email&quot;: &quot;roc100year@gmail.com&quot;, //这里输入自己注册sublimall网站的邮箱 &quot;api_key&quot;: &quot;xxxxxxxxxxxxxxxxxxxx&quot;, //这里输入网站账户页面左下角api key给的一串数字和字母 // Paths must be: &quot;Packages/SublimeCodeIntel&quot; or &quot;Installed Packages/Sublimall&quot; &quot;ignore_packages&quot;: [], // Set true if you want to exclude packages managed by Package Control &quot;exclude_from_package_control&quot;: false, // Set false if you don&apos;t want to encrypt your configuration &quot;encrypt&quot;: true, // Upload timeout in seconds &quot;http_upload_timeout&quot;: 120, // Download timeout in seconds &quot;http_download_timeout&quot;: 120, // Path to 7zip executable, though Sublimall tries to find it out itself &quot;7za_path&quot;: &quot;/usr/local/bin/7za&quot;, //这里输入压缩软件所在的路径 // HTTP proxy to use for HTTP requests. Support for authentication // Examples: http://user:password@host:port or http://ip:port &quot;http_proxy&quot;: &quot;&quot; } 打开preferences–package setting–sublimall–upload有一个压缩密码的空白行出现,输入压缩包的密码或者直接打回车.等待压缩和上传就好了. sublimall–retrieve 是取回备份的个人配置.]]></content>
+      <tags>
+        <tag>软件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[折腾黑苹果]]></title>
+    <url>%2F2014%2F07%2F16%2Fhackmac%2F</url>
+    <content type="text"><![CDATA[这几天折腾下来，终于把黑苹果安装成功了。真是累。 我原来对黑苹果毫无概念，不知道怎么想的，想安装一下试试。 机子配置： CPU: INTEL E3 1230V2 主板：技嘉B75m-D3V 显卡：微星6850 hawk 安装步骤 先谷歌搜索“黑苹果”，根据第一个条目，点进威锋网，按照帖子教的步骤一步一步来，安装完成，启动时候始终菊花，死活进不去。只好再换一个帖子来，找了一个U盘安装的帖子，这次安装成功了，但是键盘几个键始终无效，比如空格键 退格键 tab键等，显卡也不成功。然后开始了，各种看帖子的节奏，远景论坛 威锋网等等。 最终安装了远景论坛ID为：七月流火的U盘版的黑苹果，基本上算完美了，安装后显卡自动驱动成功，用MultiBeast安装网卡和声卡驱动。网卡驱动安装完成重启后，在系统偏好里面的网络选择以太网，等自动配置ip成功后，点击应用。键盘问题因为NOPPOO跟MAC系统不兼容，改插PS/2接口候解决。 七月流火的帖子里面提供的是MAC 10.9.3版本，安装完成后，可以在appstore里面升级到最新的10.9.4 我习惯的软件： 浏览器：Chrome，mac系统里面chrome的手势插件跟右键冲突，所以在页面上经常使用右键选择或者拷贝的时候，最好把各种手势或者拖拽插件禁掉。 输入法：搜狗，很多人推荐百度，但是我输入的时候又个不好的习惯，经常把ang或者ing输入成agn或者ign，谷歌输入法或者搜狗输入法能自动辨识，百度输入法不可以，但是mac系统里面没有我win和安卓里面最习惯的谷歌输入法，我只好选择搜狗。 视频播放器：射手播放器1.18版 翻墙： GoaentX，根据网上教程一步步来即可，如果把MAC系统自带的python升级到 2.7.8可能导致翻墙失效。 用久之后发现ShadowsocksX在mac下面表现更好. 终端：安装的是oh-my-zsh，注意 自己改字体的时候，要勾选：平滑文本。然后安装iterm2 MAC下读写WIN系统的NFS分区：Texera NTFS for Mac 快速搜索NFS分区：Easyfind RAR解压缩软件：The Unarchiver 笔记软件：Evernote 其他软件：Finder加强插件XtraFind，Alfred，Sublime Text 3，dash，微信MAC版，teamviewer,ParallelsDesktop, easyfind, airmail2等。]]></content>
+      <tags>
+        <tag>黑苹果</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo新版的一个重大bug或者说改动]]></title>
+    <url>%2F2014%2F07%2F16%2Ffuck-hexo-coder%2F</url>
+    <content type="text"><![CDATA[连续hexo g出错,害的我还以为我系统坏掉了.重装了好几次.原来是hexo 最新版本2.8.0跟主题出现冲突了更改了一些东西. 官网的回答tommy351 commented 2 days agoYAML parser was changed in Hexo 2.8. You have to wrap strings like this with quotation marks. archive_b: Archives: %s =&gt; archive_b: “Archives: %s” https://github.com/hexojs/hexo/issues/722]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[今天试了一个新的hexo主题]]></title>
+    <url>%2F2014%2F07%2F14%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[感觉很不错,符合我的审美. github源码的网址是: https://github.com/xiangming/landscape-plus 例子网站是: http://reqianduan.com/]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+</search>
