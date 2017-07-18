@@ -294,6 +294,117 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://mrxin.github.io/2015/08/27/tencent-vido-comment/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小信">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小信' Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/08/27/tencent-vido-comment/" itemprop="url">腾讯视频评论动态网页评论的抓取</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-08-27T20:16:52+08:00">
+                2015-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight dart"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env python</div><div class="line"># -*- coding: utf<span class="number">-8</span> -*-</div><div class="line"># <span class="meta">@Date</span>    : <span class="number">2015</span><span class="number">-08</span><span class="number">-23</span> <span class="number">20</span>:<span class="number">03</span>:<span class="number">51</span></div><div class="line"># <span class="meta">@Author</span>  : Xin(skywater<span class="meta">@gmail</span>.com)</div><div class="line"># <span class="meta">@Link</span>    : playbear.github.io</div><div class="line"></div><div class="line"><span class="keyword">import</span> requests</div><div class="line">from bs4 <span class="keyword">import</span> BeautifulSoup</div><div class="line"><span class="keyword">import</span> json</div><div class="line"></div><div class="line">url = <span class="string">'http://v.qq.com/cover/q/qviv9yyjn83eyfu/c0017ivdw3z.html'</span></div><div class="line">my_headers = &#123;<span class="string">'User-Agent'</span>:<span class="string">'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36'</span>&#125;</div><div class="line"></div><div class="line">req = requests.<span class="keyword">get</span>(url)</div><div class="line"></div><div class="line">soup = BeautifulSoup(req.text, <span class="string">"lxml"</span>)</div><div class="line"></div><div class="line"></div><div class="line">ji_shu = soup.find_all(<span class="string">'a'</span>, class_=<span class="string">'album_link'</span>)</div><div class="line"><span class="keyword">for</span> ji <span class="keyword">in</span> ji_shu:</div><div class="line">    <span class="built_in">num</span> = ji.get_text().encode(<span class="string">'utf-8'</span>).strip()</div><div class="line">    ji_url = <span class="string">'http://sns.video.qq.com/fcgi-bin/video_comment_id?otype=json&amp;op=3&amp;vid='</span> + ji.<span class="keyword">get</span>(<span class="string">'id'</span>)</div><div class="line">    ji_req = requests.<span class="keyword">get</span>(ji_url)</div><div class="line">    ji_id = json.loads(ji_req.content.split(<span class="string">'='</span>)[<span class="number">1</span>][:<span class="number">-1</span>])[<span class="string">'comment_id'</span>]</div><div class="line">    comment_url = <span class="string">'http://coral.qq.com/article/'</span> + ji_id.encode(<span class="string">'utf-8'</span>) + <span class="string">'/comment?commentid=0&amp;reqnum=10'</span></div><div class="line">    comment_req = requests.<span class="keyword">get</span>(comment_url, headers=my_headers)</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> comment_req.json()[<span class="string">'data'</span>][<span class="string">'commentid'</span>]:</div><div class="line">        <span class="built_in">print</span> <span class="string">'第%s集'</span> % <span class="built_in">num</span>, i[<span class="string">'userinfo'</span>][<span class="string">'nick'</span>], i[<span class="string">'timeDifference'</span>]</div><div class="line">        <span class="built_in">print</span> i[<span class="string">'content'</span>]</div><div class="line">        <span class="built_in">print</span></div><div class="line">    raw_input()</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://mrxin.github.io/2015/08/25/chromedriver-path/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1437,130 +1548,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://mrxin.github.io/2015/03/05/st3-install/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小信">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小信' Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/03/05/st3-install/" itemprop="url">sublime text3 安装和设置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-03-05T15:16:16+08:00">
-                2015-03-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Sublime Text3 是我最常用的python编辑器,</p>
-<p>1: 安装Package Control,View–Show console,输入下面数据后回车:(参考来源: <a href="https://packagecontrol.io/installation#st3" target="_blank" rel="external">https://packagecontrol.io/installation#st3</a>)</p>
-<pre><code>import urllib.request,os,hashlib; h = &apos;eb2297e1a458f27d836c04bb0cbaf282&apos; + &apos;d0e7a3098092775ccb37ca9d6b2e4b7d&apos;; pf = &apos;Package Control.sublime-package&apos;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( &apos;http://packagecontrol.io/&apos; + pf.replace(&apos; &apos;, &apos;%20&apos;)).read(); dh = hashlib.sha256(by).hexdigest(); print(&apos;Error validating download (got %s instead of %s), please try manual install&apos; % (dh, h)) if dh != h else open(os.path.join( ipp, pf), &apos;wb&apos; ).write(by)
-</code></pre><p>2: 安装插件,快捷键CMD + Shift + P,输入Install Package.卸载插件时输入: Remove Package</p>
-<p>   常用的插件包括:</p>
-<p>   AutoPeP8: 自动格式化python代码</p>
-<p>   SublimeCodeIntel: python语法提示和自动完成</p>
-<p>   ConvertToUTF8: 顾名思义转换成UTF8编码格式</p>
-<p>   SideBarEnhancements: 侧边栏增强</p>
-<p>   SublimeTmpl: 新建文件模板</p>
-<p>3: 修改快捷键,打开Perferences–Key Buildings User将这个内容复制进去保存<br><figure class="highlight prolog"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; <span class="string">"keys"</span>: [<span class="string">"f5"</span>], <span class="string">"command"</span>: <span class="string">"build"</span> &#125;,</div></pre></td></tr></table></figure></p>
-<p> 这样按F5就是编译了,当然以前的CMD + B(windows系统下面是Ctrl + B)也是可以的.</p>
-<p>4: 其他参考以前写的 <a href="http://playbear.github.io/2015/09/02/sublime-backup/" target="_blank" rel="external">http://playbear.github.io/2015/09/02/sublime-backup/</a> 和 <a href="http://playbear.github.io/2014/08/13/sublime-plugin-sublime-tmpl/" target="_blank" rel="external">http://playbear.github.io/2014/08/13/sublime-plugin-sublime-tmpl/</a>  等</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1610,7 +1597,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

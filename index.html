@@ -294,6 +294,212 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://mrxin.github.io/2017/07/18/bash-tip/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小信">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小信' Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/18/bash-tip/" itemprop="url">bash常用的命令和工具</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-18T18:40:26+08:00">
+                2017-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>工具</p>
+<ul>
+<li><p>1 # thefuck<br>用于输错命令后的自动纠正</p>
+<ul>
+<li><p>安装</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">brew </span><span class="keyword">install </span>thefuck</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">pythn</div><div class="line"><span class="meta"># zsh: command not found: pythonn</span></div><div class="line">fuck</div><div class="line"><span class="meta"># python [enter/↑/↓/ctrl+c]</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>2 # tldr<br>用于bash命令的提示和示例</p>
+<ul>
+<li><p>安装</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">brew </span><span class="keyword">install </span>tldr</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用</p>
+<p><img src="http://ww1.sinaimg.cn/large/4399c9a5gy1fho22cpfopj20oz0exad6.jpg" alt=""></p>
+</li>
+</ul>
+</li>
+<li><p>3 # mycli<br>支持自动补全和语法高亮的mysql命令行工具</p>
+<ul>
+<li>安装<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">brew </span><span class="keyword">install </span>mycli</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>常用命令</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">history</td>
+<td style="text-align:center">查看命令行历史记录，再用 !n（n 是命令编号）就可以再次执行</td>
+</tr>
+<tr>
+<td style="text-align:center">ctrl-a</td>
+<td style="text-align:center">将光标移至行首</td>
+</tr>
+<tr>
+<td style="text-align:center">ctrl-e</td>
+<td style="text-align:center">将光标移至行尾</td>
+</tr>
+<tr>
+<td style="text-align:center">alt-b 和 alt-f</td>
+<td style="text-align:center">以单词为单位移动光标</td>
+</tr>
+<tr>
+<td style="text-align:center">pstree -p</td>
+<td style="text-align:center">进程树</td>
+</tr>
+<tr>
+<td style="text-align:center">ps -ef grep python</td>
+<td style="text-align:center">显示python的进程</td>
+</tr>
+<tr>
+<td style="text-align:center">netstat -lntp 或 ss -plat</td>
+<td style="text-align:center">检查哪些进程在监听端口</td>
+</tr>
+<tr>
+<td style="text-align:center">alias</td>
+<td style="text-align:center">alias ll=’ls -latr’ 创建了一个新的命令别名 ll</td>
+</tr>
+<tr>
+<td style="text-align:center">ln -s</td>
+<td style="text-align:center">创建软连接</td>
+</tr>
+<tr>
+<td style="text-align:center">df -h</td>
+<td style="text-align:center">查看硬盘分区</td>
+</tr>
+<tr>
+<td style="text-align:center">exec $SHELL</td>
+<td style="text-align:center">重启shell</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>技巧<ul>
+<li>删除大量文件的最快方法之一<figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">mkdir</span> empty &amp;&amp; rsync -r --<span class="built_in">delete</span> empty/ <span class="built_in">some</span>-dir &amp;&amp; <span class="built_in">rmdir</span> <span class="built_in">some</span>-dir</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://mrxin.github.io/2017/05/06/login-zhihu20170506/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1534,148 +1740,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://mrxin.github.io/2016/08/15/mac-10-11-6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小信">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小信' Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/08/15/mac-10-11-6/" itemprop="url">MAC OS X 10.11.6 El Capitan安装方法与步骤</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-15T17:14:03+08:00">
-                2016-08-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>苹果公司发布了最新的Mac系统El Capitan,我也跟风安装了,<br>昨天试了一天终于算是安装成功了.</p>
-<h3 id="电脑配置"><a href="#电脑配置" class="headerlink" title="电脑配置:"></a>电脑配置:</h3><p>CPU: E3-1230 v2<br>主板: 技嘉B75M D3V<br>显卡: 微星6850<br>声卡: Realtek ALC887<br>键盘: Noppoo 84键机械键盘</p>
-<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>远景论坛czczyx大神制作的原版镜像,<a href="http://bbs.pcbeta.com/viewthread-1702066-1-1.html" target="_blank" rel="external">OS X El Capitan 15A284原版安装U盘镜像（带Clover 3270引导)</a></p>
-<p>在win下面用zd423大神制作的不限速的<a href="http://www.zdfans.com/674.html" target="_blank" rel="external">百度云4.62版本</a>下载大概两个小时.</p>
-<h3 id="备份到U盘"><a href="#备份到U盘" class="headerlink" title="备份到U盘"></a>备份到U盘</h3><p>在win下,管理员权限运行TransMac工具, 将验证过MD5码的10.11镜像恢复到至少8G的U盘上.<br>然后启动原来的mac10.10, 用Clover Configurator工具打开EFI文件里面的config.plist配置文件,将System Parameters的Inject Kents改成Yes, 以防安装的时候一直菊花白屏.<br><img src="http://ww2.sinaimg.cn/large/7293e3b7jw1ewmr8989y7j20qp0bngml.jpg" alt=""><br>或者,进入到CLOVER引导界面后，选择boot install mac os x with inject</p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>重启电脑, 一直按F12, 选择UEFI U盘启动, 选择安装 EL Captain,<br>大概四五分钟后,</p>
-<ul>
-<li>进入安装选择界面,</li>
-<li>选择磁盘工具, 格式化要安装的硬盘</li>
-<li>安装10.11,</li>
-<li>大概20分钟到最后1秒, 这个1秒也要持续10~20分钟</li>
-<li>重启后再次U盘选择安装EL Captain, 这次同样需要20分钟左右</li>
-<li>重启后u盘选择从刚刚安装的硬盘启动El Captain,</li>
-<li>配置用户名密码,不要选择网络,之后进入桌面</li>
-</ul>
-<h3 id="安装驱动"><a href="#安装驱动" class="headerlink" title="安装驱动"></a>安装驱动</h3><ul>
-<li><p>安装事先下载好的<a href="http://bbs.pcbeta.com/viewthread-1605849-1-1.html" target="_blank" rel="external">clover</a>, 安装的时候选择自定,然后勾选’UEFI开机版本’<br><img src="http://ww4.sinaimg.cn/large/7293e3b7jw1ewmrji1mboj20gm086jsi.jpg" alt=""></p>
-</li>
-<li><p>将U盘的EFI目录粘贴覆盖到电脑的EFI盘中, 如果没有显示可以用Clover Configurator挂载.</p>
-</li>
-<li>将下载好的网卡驱动拷贝到’/Volumes/EFI/EFI/CLOVER/kexts/10.11’. 我用的也是远景大神提供的<a href="http://bbs.pcbeta.com/forum.php?mod=viewthread&amp;tid=1605530" target="_blank" rel="external">下载</a></li>
-<li>重启电脑,安装声卡,我主板是技嘉的B75M-D3V, 声卡型号是ALC887, 在10.10和10.9的时候一直用MultiBeast的声卡驱动.现在El Captain版本的MultiBeast还没有出, 7.5版本选择好声卡驱动building的时候软件报错退出.</li>
-<li>然后开始了漫长的尝试各种声卡驱动历程, <a href="http://bbs.pcbeta.com/forum.php?mod=viewthread&amp;tid=1605530" target="_blank" rel="external">远景大神</a>和<a href="http://www.insanelymac.com/forum/topic/298663-applehda-for-yosemite/" target="_blank" rel="external">外国大神</a>提供的显卡驱动,我用Kext Wizard安装并且修复权限后,能出声音, 但是出声大概5秒后开始噪音,然后卡顿.</li>
-<li>安装VoodooHDA 2.8.8重启,还没进入桌面就很大噪音发出来.同样没法用.</li>
-<li>最后尝试到Voodoo_HDA_2.8.5_MAV.pkg,还算可以, 就是启动载入桌面前有一声爆音, 其他还可以. 不算完美,也能用吧.至少不卡顿和没有噪音.</li>
-<li>Noppoo的机械键盘与MAC osx不兼容,需要安装大神只做好的驱动和软件, 参考<a href="http://thefloweringash.github.io/iousbhiddriver-descriptor-override/" target="_blank" rel="external">IOUSBHIDDriverDescriptorOverride</a>,<ul>
-<li>下载最新的<a href="http://thefloweringash.com/iousbhiddriver-descriptor-override/downloads/IOUSBHIDDriverDescriptorOverride-2013-04-21-b545d15.pkg" target="_blank" rel="external">IOUSBHIDDriver</a>, 安装后重启,</li>
-<li>下载<a href="https://pqrs.org/osx/karabiner/files/Karabiner-10.9.0.dmg" target="_blank" rel="external">KeyRemap4MacBook</a>, 安装后运行,如果不安装这个, ?和 + 等键打不出来.</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1725,7 +1789,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
