@@ -294,6 +294,137 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://mrxin.github.io/2015/09/18/mac10-10-install-mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小信">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小信' Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/09/18/mac10-10-install-mysql/" itemprop="url">MAC10.10 下安装mySQL方法和设置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-09-18T19:12:20+08:00">
+                2015-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>mac10.10下可以用brew安装mySQL,</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">brew </span><span class="keyword">install </span>mysql</div></pre></td></tr></table></figure>
+<p>安装完成后, 正常可以用</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql<span class="selector-class">.server</span> start</div></pre></td></tr></table></figure>
+<p>启动mysql.</p>
+<p>但是我这次安装后提示,</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mysql.server <span class="built_in">start</span></div><div class="line">zsh: <span class="keyword">command</span> <span class="title">not</span> <span class="title">found</span>: <span class="title">mysql</span>.<span class="title">server</span></div></pre></td></tr></table></figure>
+<p>往前翻brew安装记录找到这个</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">The `brew link` step did <span class="keyword">not</span> complete successfully</div><div class="line">The formula built, <span class="keyword">but</span> <span class="keyword">is</span> <span class="keyword">not</span> symlinked <span class="keyword">into</span> /usr/<span class="keyword">local</span></div><div class="line">Could <span class="keyword">not</span> symlink share/man/man8/mysqld<span class="number">.8</span></div><div class="line">/usr/<span class="keyword">local</span>/share/man/man8 <span class="keyword">is</span> <span class="keyword">not</span> writable.</div><div class="line"></div><div class="line">You can <span class="keyword">try</span> again using:</div><div class="line">  brew link mysql</div></pre></td></tr></table></figure>
+<p>然后根据’Could not symlink share/man/man8/mysqld.8<br>/usr/local/share/man/man8 is not writable.’搜到网上高手的解决办法,<a href="http://apple.stackexchange.com/questions/192227/make-files-in-usr-local-writable-for-homebrew" target="_blank" rel="external">高手</a><br>就是运行一个命令</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo <span class="keyword">chown</span> -R <span class="string">`whoami`</span> /usr/<span class="keyword">local</span></div></pre></td></tr></table></figure>
+<p>再启动mysql服务器就行了.<br>进入mysql的命令是:</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">mysql -uroot -p</span></div></pre></td></tr></table></figure>
+<p>初始登陆没有密码,直接按回车.<br>如果需要设置密码可以用以下命令.</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/usr/</span>local<span class="regexp">/bin/my</span>sqladmin -u root password <span class="string">'root'</span></div></pre></td></tr></table></figure>
+<p>分号里面root就是密码,可以根据需要改成自己的.</p>
+<p>在mysql里面,如果输入错误命令后,再输入其他命令也无效了,输入”\c”后就可以重新返回命令行了.</p>
+<p>还有就是windows下mysql安装完成后,需要设置环境变量后才能使用mysql命令.</p>
+<p>在python中操作MySQL数据库,需要安装一个叫MySQL db的第三方库才行.</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pip <span class="keyword">install</span> MySQL-python</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://mrxin.github.io/2015/09/15/webstorm-jQuery/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1395,130 +1526,6 @@ for each in a:
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://mrxin.github.io/2015/08/30/new_sublime_plugin/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小信">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小信' Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/08/30/new_sublime_plugin/" itemprop="url">几个新的好用的适合我的Sublime Text3插件</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-08-30T10:41:54+08:00">
-                2015-08-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="1-Anaconda"><a href="#1-Anaconda" class="headerlink" title="1: Anaconda"></a>1: Anaconda</h1><h4 id="作用"><a href="#作用" class="headerlink" title="作用:"></a>作用:</h4><p>   Anaconda把PyFlakes, pep8 和 McCabe以插件的方式集成起来,实现语法提示 pep8检查 自动完成等功能.安装Anaconda后，通过配置即可完成一个良好的Python开发环境。</p>
-<p>  主要的一个配置是:</p>
-<p>   忽略AutoFormat PEP8中E501(单行代码长度检查)的提示:<br>        “pep8_ignore”:[“E501”]</p>
-<h3 id="下载地址和介绍"><a href="#下载地址和介绍" class="headerlink" title="下载地址和介绍:"></a>下载地址和介绍:</h3><p>   <a href="https://github.com/DamnWidget/anaconda" target="_blank" rel="external">anaconda</a></p>
-<h3 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法:"></a>安装方法:</h3><p>   通过package control 来安装.</p>
-<h1 id="2-DashDoc"><a href="#2-DashDoc" class="headerlink" title="2: DashDoc"></a>2: DashDoc</h1><h3 id="作用-1"><a href="#作用-1" class="headerlink" title="作用:"></a>作用:</h3><p>   在sublime text中调用dash,直接查找python的关键字用法和参数等.</p>
-<h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键:"></a>快捷键:</h3><p>   快捷键是 Ctrl + H,注意在Mac osX下面也是Ctrl不是command</p>
-<h3 id="下载地址和介绍-1"><a href="#下载地址和介绍-1" class="headerlink" title="下载地址和介绍:"></a>下载地址和介绍:</h3><p>   <a href="https://github.com/farcaller/DashDoc" target="_blank" rel="external">DashDoc</a></p>
-<h3 id="安装方法-1"><a href="#安装方法-1" class="headerlink" title="安装方法:"></a>安装方法:</h3><p>   主要是通过package control安装</p>
-<h1 id="3-ctags"><a href="#3-ctags" class="headerlink" title="3: ctags"></a>3: ctags</h1><h3 id="作用-2"><a href="#作用-2" class="headerlink" title="作用:"></a>作用:</h3><p>   实现函数的跳转,即在中型大型项目中迅速查找到某个函数的初始定义.</p>
-<h3 id="下载地址和介绍-2"><a href="#下载地址和介绍-2" class="headerlink" title="下载地址和介绍:"></a>下载地址和介绍:</h3><p>   <a href="https://github.com/SublimeText/CTags" target="_blank" rel="external">CTags</a> </p>
-<h3 id="安装方法-2"><a href="#安装方法-2" class="headerlink" title="安装方法:"></a>安装方法:</h3><p>   通过package control在sublime text中安装,还要通过brew install ctags安装到系统中.</p>
-<h3 id="一个安装和使用的百度经验"><a href="#一个安装和使用的百度经验" class="headerlink" title="一个安装和使用的百度经验:"></a>一个安装和使用的百度经验:</h3><p>   <a href="http://jingyan.baidu.com/article/48206aeafba820216ad6b3f5.html" target="_blank" rel="external">Sublime Text2/3怎样在Mac OSX中配置CTags插件</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1568,7 +1575,7 @@ for each in a:
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">59</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

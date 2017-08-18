@@ -294,6 +294,175 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://mrxin.github.io/2015/06/29/python_tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小信">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小信' Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/06/29/python_tips/" itemprop="url">自己需要记住和时常复习的python要点和小技巧</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-06-29T21:45:43+08:00">
+                2015-06-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>不定时更新中,<br>20141007最新更新</p>
+<ul>
+<li><h3 id="列出100以内被3整除的数更简单的方法"><a href="#列出100以内被3整除的数更简单的方法" class="headerlink" title="列出100以内被3整除的数更简单的方法:"></a>列出100以内被3整除的数更简单的方法:</h3><pre><code>range(3,100,3)    
+</code></pre></li>
+</ul>
+<ul>
+<li><h3 id="删除读取文本文件换行回车的方法"><a href="#删除读取文本文件换行回车的方法" class="headerlink" title="删除读取文本文件换行回车的方法:"></a>删除读取文本文件换行回车的方法:</h3><pre><code>line.strip()
+</code></pre></li>
+<li><h3 id="判断字符串是否是回文的简单方法"><a href="#判断字符串是否是回文的简单方法" class="headerlink" title="判断字符串是否是回文的简单方法:"></a>判断字符串是否是回文的简单方法:</h3><pre><code>def isPalindrome(s):
+    return s == s[::-1]
+</code></pre></li>
+<li><h3 id="字符串的一些方法"><a href="#字符串的一些方法" class="headerlink" title="字符串的一些方法:"></a>字符串的一些方法:</h3><ul>
+<li>S.upper() #S中的字母大写</li>
+<li>S.lower() #S中的字母小写</li>
+<li>S.capitalize() #首字母大写</li>
+<li>S.title() #每个单词首字母大写</li>
+<li>S.count(str,,) #S字符串范围内str字符出现的次数</li>
+<li>S.find(str,,) #S字符串范围内第一个str字符的索引</li>
+<li>S.istitle() #每个单词首字母是否大写的，且其它为小写，</li>
+<li>S.isupper() #S中的字母是否全是大写</li>
+<li>S.islower() #S中的字母是否全是小写</li>
+<li>S.isalpha() #S中的字符是否只有字母组成</li>
+<li>S.isalnum() #S中得字符是否只有字母或者数字组成</li>
+<li>S.isdigit() #S中的字符是否只有数字组成</li>
+<li>S.lower() #全部小写</li>
+<li>S.upper() #全部大写</li>
+<li>S.join(S1) #以S为分隔符,将S1中所有元素合并成一个新的字符串</li>
+<li>S.strip() #去掉S前后的空格</li>
+<li>S.replace(s1,s2) #将S中的s1用s2代替</li>
+</ul>
+</li>
+<li><h3 id="在collections模块中有一个Counter类"><a href="#在collections模块中有一个Counter类" class="headerlink" title="在collections模块中有一个Counter类"></a>在collections模块中有一个Counter类</h3><p>   Counter类的目的是用来跟踪值出现的次数。它是一个无序的容器类型，以字典的键值对形式存储，其中元素作为key，其计数作为value。计数值可以是任意的Interger（包括0和负数）。<br>   例如:统计一个字符串中重复字母的在字母表最先出现的字符</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">checkio</span><span class="params">(text)</span>:</span></div><div class="line">    count = Counter([x <span class="keyword">for</span> x <span class="keyword">in</span> text.lower() <span class="keyword">if</span> x.isalpha()])</div><div class="line">    m = max(count.values())</div><div class="line">    <span class="keyword">return</span> sorted([x <span class="keyword">for</span> (x, y) <span class="keyword">in</span> count.items() <span class="keyword">if</span> y == m])[<span class="number">0</span>]</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    print(checkio(<span class="string">"Hello World!"</span>))</div><div class="line">    print(checkio(<span class="string">"How do you do?"</span>))</div><div class="line">    print(checkio(<span class="string">u"One"</span>))</div><div class="line">    print(checkio(<span class="string">u"Oops!"</span>))</div></pre></td></tr></table></figure>
+<p>   counter的方法有增加(updata)和减少(subtract)两种:<br>   比如:</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">count</span> = Counter(<span class="string">'which'</span>)</div><div class="line"><span class="keyword">count</span>[<span class="string">'h'</span>]</div><div class="line"> <span class="meta">#结果显示:2</span></div><div class="line"><span class="keyword">count</span>.update(<span class="string">'witch'</span>)</div><div class="line"><span class="keyword">count</span>.[<span class="string">'h'</span>] </div><div class="line"> <span class="meta">#结果显示:3</span></div></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h3><h4 id="B-括号"><a href="#B-括号" class="headerlink" title="B(括号)"></a>B(括号)</h4>在正则表达式中有 3 种类型的括号<br>方括号”[“内是需要匹配的字符,花括号”{“内是指定匹配字符的数量。 圆括号“(“ 则是用来分组的。<h4 id="C-插入符号"><a href="#C-插入符号" class="headerlink" title="C(插入符号)"></a>C(插入符号)</h4>插入符号 “^” 表示正则式的开始。<h4 id="D-美元符号"><a href="#D-美元符号" class="headerlink" title="D(美元符号)"></a>D(美元符号)</h4>美元符号“$” 表示正则式的结束。</li>
+</ul>
+<p>注意:类似(com|net|org)的多选一,用圆括号.</p>
+<p>年月日的匹配:<br>yy-mm-dd</p>
+<pre><code>&apos;^(1[9][0-9][0-9]|2[0][0-1][0-9]|[0-9][0-9])[\.-]?([1-9]|0[1-9]|1[0-2])[\.-]?([1-9]|0[1-9]|1[0-9]|2[0-9]|3[0-1])$&apos;
+</code></pre><p>时间的匹配:<br>hh:mm:ss</p>
+<pre><code>&apos;^([0-9]|0[0-9]|1[0-9]|2[0-3])[:]([0-9]|0[0-9]|[0-6][0-9])[:]([0-9]|0[0-9]|[0-5][0-9])$&apos;
+</code></pre><p>ip地址的匹配:</p>
+<pre><code>&apos;^(([01]?[0-9][0-9]?|2[0-4][0-9]|2[5][0-5])\.){3}([01]?[0-9][0-9]?|2[0-4][0-9]|2[5][0-5])$&apos;
+</code></pre><ul>
+<li><h3 id="字母-字符与ASCII数字对应的函数"><a href="#字母-字符与ASCII数字对应的函数" class="headerlink" title="字母 字符与ASCII数字对应的函数:"></a>字母 字符与ASCII数字对应的函数:</h3>  ord（）将字符转换成ascii码数字<br>  chr()将ascii码数字转换为字符<br>  unichr()将ascii码整数返回成unicode字符</li>
+</ul>
+<ul>
+<li><h3 id="random-sample-list-n-通常用来产生不重复的n位数字"><a href="#random-sample-list-n-通常用来产生不重复的n位数字" class="headerlink" title="random.sample(list, n)通常用来产生不重复的n位数字"></a>random.sample(list, n)通常用来产生不重复的n位数字</h3><pre><code>print int(&apos;&apos;.join(map(str, random.sample(range(10), 10))))
+#3571490628
+</code></pre></li>
+<li><h3 id="enumerate的用法"><a href="#enumerate的用法" class="headerlink" title="enumerate的用法"></a>enumerate的用法</h3><p>enumerate会将数组或列表组成一个索引序列。使我们再获取索引和索引内容的时候更加方便：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> index，<span class="built_in">text</span> <span class="keyword">in</span> enumerate(<span class="built_in">list</span>)): </div><div class="line">    print index ,<span class="built_in">text</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://mrxin.github.io/2015/03/05/st3-install/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1382,153 +1551,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://mrxin.github.io/2014/08/18/hexo_install/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小信">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小信' Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2014/08/18/hexo_install/" itemprop="url">hexo的安装步骤(已经失效)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-08-18T02:12:11+08:00">
-                2014-08-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="1-设置git的SSH公钥"><a href="#1-设置git的SSH公钥" class="headerlink" title="1.设置git的SSH公钥"></a>1.设置git的SSH公钥</h3><ul>
-<li><p>打开终端,输入命令:</p>
-<pre><code>ssh-keygen -t rsa -C &quot;skywater@gmail.com&quot;
-</code></pre></li>
-<li><p>继续输入命令:</p>
-</li>
-<li><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">cd</span> <span class="selector-class">.SSH</span>      </div><div class="line"><span class="selector-tag">subl</span> <span class="selector-tag">id_rsa</span><span class="selector-class">.pub</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>拷贝SSH公钥到github账户的SSH keys里面.</p>
-<ul>
-<li>输入命令:</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global user<span class="selector-class">.email</span> <span class="string">"skywater@gmail.com"</span></div><div class="line">git config --global user<span class="selector-class">.name</span> <span class="string">"playbear"</span></div></pre></td></tr></table></figure>
-<h3 id="2-安装hexo环境-参考官网"><a href="#2-安装hexo环境-参考官网" class="headerlink" title="2. 安装hexo环境,参考官网"></a>2. 安装hexo环境,参考<a href="http://hexo.io/docs/" target="_blank" rel="external">官网</a></h3><ul>
-<li>安装node.js,打开终端,输入命令:</li>
-</ul>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install <span class="keyword">node</span><span class="title"></span></div></pre></td></tr></table></figure>
-<ul>
-<li>安装nvm,命令:</li>
-</ul>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl https:<span class="regexp">//</span>raw.githubusercontent.com<span class="regexp">/creationix/</span>nvm<span class="regexp">/v0.13.1/i</span>nstall.sh | bash</div></pre></td></tr></table></figure>
-<ul>
-<li>安装完成后重启终端,然后运行:</li>
-</ul>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nvm <span class="keyword">install</span> <span class="number">0.10</span></div></pre></td></tr></table></figure>
-<ul>
-<li>安装Hexo:</li>
-</ul>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm <span class="keyword">install</span> -g hexo</div></pre></td></tr></table></figure>
-<ul>
-<li>初始化Hexo:</li>
-</ul>
-<figure class="highlight plain"><figcaption><span>playbear.github.io</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd playbear.github.io</div><div class="line">hexo init</div><div class="line">npm install</div><div class="line">hexo g</div><div class="line">hexo d</div></pre></td></tr></table></figure>
-<h3 id="3-常用hexo命令"><a href="#3-常用hexo命令" class="headerlink" title="3. 常用hexo命令"></a>3. 常用hexo命令</h3><figure class="highlight plain"><figcaption><span>n "new_file"(之后用mou编辑new_file.md)</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo g</div><div class="line">hexo d</div></pre></td></tr></table></figure>
-<h3 id="4-hexo版本更新"><a href="#4-hexo版本更新" class="headerlink" title="4. hexo版本更新"></a>4. hexo版本更新</h3><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">npm</span> update -g</div></pre></td></tr></table></figure>
-<h3 id="如果重装系统后的安装，在hexo-g之后将备份的文件夹拷贝覆盖即可。"><a href="#如果重装系统后的安装，在hexo-g之后将备份的文件夹拷贝覆盖即可。" class="headerlink" title="如果重装系统后的安装，在hexo g之后将备份的文件夹拷贝覆盖即可。"></a>如果重装系统后的安装，在hexo g之后将备份的文件夹拷贝覆盖即可。</h3>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1578,7 +1600,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">59</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
