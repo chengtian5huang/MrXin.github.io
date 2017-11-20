@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="科学上网," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -90,17 +90,19 @@
 
 
 
-<meta name="description" content="因为某些原因google搜索经常被屏蔽,但是工作需要经常使用.修改hosts是访问google最方便的方法之一. 1: 10.9.5的MAC下修改hosts的方法,搜索得来的,   在终端输入:1sudo /Applications/TextEdit.app/Contents/MacOS/TextEdit /etc/hosts    10.10 Yosemite   打开finder,选择前往文件">
-<meta name="keywords" content="科学上网">
+<meta name="description" content="1 安装和设置java 1: 搜索官方下载jdk相应版本, 然后双击安装 2: iterm运行 1/usr/libexec/java_home -V 出现类似 1/Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home 说明安装成功  3: 打开zsh, vim ~/.zshrc 最后面添加 1export JAVA_HOM">
+<meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MAC下面修改hosts和获得最新hosts的方法">
-<meta property="og:url" content="http://mrxin.github.io/2015/08/07/fuck-gfw/index.html">
+<meta property="og:title" content="mac 安装和设置java maven">
+<meta property="og:url" content="http://mrxin.github.io/2017/11/20/mac-java-maven-md/index.html">
 <meta property="og:site_name" content="小信' Blog">
-<meta property="og:description" content="因为某些原因google搜索经常被屏蔽,但是工作需要经常使用.修改hosts是访问google最方便的方法之一. 1: 10.9.5的MAC下修改hosts的方法,搜索得来的,   在终端输入:1sudo /Applications/TextEdit.app/Contents/MacOS/TextEdit /etc/hosts    10.10 Yosemite   打开finder,选择前往文件">
-<meta property="og:updated_time" content="2016-08-08T10:14:54.000Z">
+<meta property="og:description" content="1 安装和设置java 1: 搜索官方下载jdk相应版本, 然后双击安装 2: iterm运行 1/usr/libexec/java_home -V 出现类似 1/Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home 说明安装成功  3: 打开zsh, vim ~/.zshrc 最后面添加 1export JAVA_HOM">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/7293e3b7gy1flopsvyxqoj20s008oq4k.jpg">
+<meta property="og:updated_time" content="2017-11-20T10:39:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MAC下面修改hosts和获得最新hosts的方法">
-<meta name="twitter:description" content="因为某些原因google搜索经常被屏蔽,但是工作需要经常使用.修改hosts是访问google最方便的方法之一. 1: 10.9.5的MAC下修改hosts的方法,搜索得来的,   在终端输入:1sudo /Applications/TextEdit.app/Contents/MacOS/TextEdit /etc/hosts    10.10 Yosemite   打开finder,选择前往文件">
+<meta name="twitter:title" content="mac 安装和设置java maven">
+<meta name="twitter:description" content="1 安装和设置java 1: 搜索官方下载jdk相应版本, 然后双击安装 2: iterm运行 1/usr/libexec/java_home -V 出现类似 1/Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home 说明安装成功  3: 打开zsh, vim ~/.zshrc 最后面添加 1export JAVA_HOM">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/7293e3b7gy1flopsvyxqoj20s008oq4k.jpg">
 
 
 
@@ -128,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://mrxin.github.io/2015/08/07/fuck-gfw/"/>
+  <link rel="canonical" href="http://mrxin.github.io/2017/11/20/mac-java-maven-md/"/>
 
 
 
 
 
-  <title>MAC下面修改hosts和获得最新hosts的方法 | 小信' Blog</title>
+  <title>mac 安装和设置java maven | 小信' Blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -297,7 +299,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://mrxin.github.io/2015/08/07/fuck-gfw/">
+    <link itemprop="mainEntityOfPage" href="http://mrxin.github.io/2017/11/20/mac-java-maven-md/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小信">
@@ -314,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">MAC下面修改hosts和获得最新hosts的方法</h1>
+          <h1 class="post-title" itemprop="name headline">mac 安装和设置java maven</h1>
         
 
         <div class="post-meta">
@@ -326,8 +328,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-08-07T16:44:25+08:00">
-                2015-08-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-20T18:38:36+08:00">
+                2017-11-20
               </time>
             
 
@@ -361,21 +363,37 @@
       
 
       
-        <p>因为某些原因google搜索经常被屏蔽,但是工作需要经常使用.修改hosts是访问google最方便的方法之一.</p>
-<p>1: 10.9.5的MAC下修改hosts的方法,搜索得来的,<br>   在终端输入:<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo <span class="regexp">/Applications/</span>TextEdit.app<span class="regexp">/Contents/</span>MacOS<span class="regexp">/TextEdit /</span>etc<span class="regexp">/hosts</span></div></pre></td></tr></table></figure></p>
-<p>   10.10 Yosemite<br>   打开finder,选择前往文件夹,填入<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/etc/</span>hosts,</div></pre></td></tr></table></figure></p>
-<p>   将hosts拖到桌面,修改.然后再覆盖进去.</p>
-<p>2: 获取hosts的几种方法,<br>   github大神制作好的的hosts文件,直接拷贝就行了.</p>
-<p>   获取最新hosts的网站,</p>
-   <figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/vokins/</span>simpleu</div><div class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/racaljk/</span>hosts</div></pre></td></tr></table></figure>
-<p>   一个hosts不好用时候,及时更换成另外一个.</p>
-<p>3: 用chrome浏览器的话,在设置里把默认搜索改成:</p>
-<pre><code>https://www.google.com/search?q=%s
-</code></pre><p>   并且在浏览器中运行一次:</p>
-<pre><code>https://www.google.com/ncr
-</code></pre><p>  防止自动跳转到google.com.hk</p>
-<p>4: 日常科学上网用shadowsocks,<br><a href="https://github.com/clowwindy/shadowsocks" target="_blank" rel="external">官网点这里</a>,<br>安装运行后,免费得ss网站上获取服务器和密码</p>
-<h3 id="大神总结的翻墙小结-各种系统的都有"><a href="#大神总结的翻墙小结-各种系统的都有" class="headerlink" title="大神总结的翻墙小结.各种系统的都有,"></a>大神总结的翻墙小结.各种系统的都有,</h3><p><a href="http://wsgzao.github.io/post/gfw-break/" target="_blank" rel="external">这里是连接</a></p>
+        <ul>
+<li><h3 id="1-安装和设置java"><a href="#1-安装和设置java" class="headerlink" title="1 安装和设置java"></a>1 安装和设置java</h3><ul>
+<li>1: 搜索官方下载jdk相应版本, 然后双击安装</li>
+<li><p>2: iterm运行</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/libexec/jav<span class="built_in">a_home</span> -V</div></pre></td></tr></table></figure>
+<p>出现类似</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/Library/</span>Java<span class="regexp">/JavaVirtualMachines/</span>jdk1.<span class="number">8.0</span>_151.jdk<span class="regexp">/Contents/</span>Home</div></pre></td></tr></table></figure>
+<p>说明安装成功</p>
+</li>
+<li><p>3: 打开zsh, <code>vim ~/.zshrc</code> 最后面添加</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export JAV<span class="built_in">A_HOME</span>=$(/usr/libexec/jav<span class="built_in">a_home</span>)</div></pre></td></tr></table></figure>
+<p>保存<br>4: 重新加载zshrc, <code>source ~/.zshrc</code>, 输入<code>echo $JAVA_HOME</code><br>出现</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/Library/</span>Java<span class="regexp">/JavaVirtualMachines/</span>jdk1.<span class="number">8.0</span>_151.jdk<span class="regexp">/Contents/</span>Home</div></pre></td></tr></table></figure>
+<p>说明安装成功</p>
+</li>
+</ul>
+</li>
+<li><h3 id="2-安装和设置maven"><a href="#2-安装和设置maven" class="headerlink" title="2 安装和设置maven"></a>2 安装和设置maven</h3><ul>
+<li>用brew安装maven <code>brew install maven</code></li>
+<li><p>item 运行 <code>mvn -v</code><br>出现这样结果说明安装成功</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Maven <span class="string">home:</span> <span class="regexp">/usr/</span>local<span class="regexp">/Cellar/</span>maven<span class="regexp">/3.5.2/</span>libexec</div><div class="line">Java <span class="string">version:</span> <span class="number">1.8</span><span class="number">.0</span>_151, <span class="string">vendor:</span> Oracle Corporation</div><div class="line">Java <span class="string">home:</span> <span class="regexp">/Library/</span>Java<span class="regexp">/JavaVirtualMachines/</span>jdk1<span class="number">.8</span><span class="number">.0</span>_151.jdk<span class="regexp">/Contents/</span>Home/jre</div><div class="line">Default <span class="string">locale:</span> zh_CN, platform <span class="string">encoding:</span> UTF<span class="number">-8</span></div><div class="line">OS <span class="string">name:</span> <span class="string">"mac os x"</span>, <span class="string">version:</span> <span class="string">"10.12.6"</span>, <span class="string">arch:</span> <span class="string">"x86_64"</span>, <span class="string">family:</span> <span class="string">"mac"</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>改成阿里源, 参考<a href="http://blog.csdn.net/liangyihuai/article/details/57406870" target="_blank" rel="external">来源</a> <code>/usr/local/Cellar/maven/3.5.2/libexec/conf</code> 这个目录下找到setting.xml文件, 打开.<br>在<code>mirrors</code>字段下填入</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>alimaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>aliyun maven<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>修改idea的默认maven, 参考<a href="http://www.jianshu.com/p/43b65774cc15" target="_blank" rel="external">来源1</a>, <a href="http://blog.csdn.net/cherrycheng_/article/details/51729272" target="_blank" rel="external">来源2</a></p>
+<p><img src="http://ww1.sinaimg.cn/large/7293e3b7gy1flopsvyxqoj20s008oq4k.jpg" alt=""></p>
+</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -403,12 +421,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/科学上网/" rel="tag"># 科学上网</a>
-          
-        </div>
-      
 
       
         
@@ -418,18 +430,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/15/python-requests-utf-8/" rel="next" title="python + requests抓取百度百科时候遇到的乱码问题">
-                <i class="fa fa-chevron-left"></i> python + requests抓取百度百科时候遇到的乱码问题
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/07/login-v2ex/" rel="prev" title="用request和beautisoup登录、签到v2ex">
-                用request和beautisoup登录、签到v2ex <i class="fa fa-chevron-right"></i>
+              <a href="/2017/11/20/idea-plugs-md/" rel="prev" title="idea常用插件与配置">
+                idea常用插件与配置 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -550,7 +558,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#大神总结的翻墙小结-各种系统的都有"><span class="nav-number">1.</span> <span class="nav-text">大神总结的翻墙小结.各种系统的都有,</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装和设置java"><span class="nav-number">1.</span> <span class="nav-text">1 安装和设置java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-安装和设置maven"><span class="nav-number">2.</span> <span class="nav-text">2 安装和设置maven</span></a></li></ol></div>
             
 
           </div>

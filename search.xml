@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[mac 安装和设置java maven]]></title>
+    <url>%2F2017%2F11%2F20%2Fmac-java-maven-md%2F</url>
+    <content type="text"><![CDATA[1 安装和设置java 1: 搜索官方下载jdk相应版本, 然后双击安装 2: iterm运行 1/usr/libexec/java_home -V 出现类似 1/Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home 说明安装成功 3: 打开zsh, vim ~/.zshrc 最后面添加 1export JAVA_HOME=$(/usr/libexec/java_home) 保存4: 重新加载zshrc, source ~/.zshrc, 输入echo $JAVA_HOME出现 1/Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home 说明安装成功 2 安装和设置maven 用brew安装maven brew install maven item 运行 mvn -v出现这样结果说明安装成功 12345Maven home: /usr/local/Cellar/maven/3.5.2/libexecJava version: 1.8.0_151, vendor: Oracle CorporationJava home: /Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home/jreDefault locale: zh_CN, platform encoding: UTF-8OS name: "mac os x", version: "10.12.6", arch: "x86_64", family: "mac" 改成阿里源, 参考来源 /usr/local/Cellar/maven/3.5.2/libexec/conf 这个目录下找到setting.xml文件, 打开.在mirrors字段下填入 123456&lt;mirror&gt; &lt;id&gt;alimaven&lt;/id&gt; &lt;name&gt;aliyun maven&lt;/name&gt; &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt; &lt;mirrorOf&gt;central&lt;/mirrorOf&gt; &lt;/mirror&gt; 修改idea的默认maven, 参考来源1, 来源2]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[idea常用插件与配置]]></title>
     <url>%2F2017%2F11%2F20%2Fidea-plugs-md%2F</url>
     <content type="text"><![CDATA[颜色主题， Monokai_2 java类模板 123456/** * @author: 个人姓名 * @date: $&#123;DATE&#125; $&#123;TIME&#125; * @className: $&#123;NAME&#125; * @description: */ 插件 阿里, 插件搜索 alibaba 参考 FindBugs-IDEA GsonFormat 参考 Translation 有道翻译参考 全局jdk版本设置File-Other Setting-Default Project Structure]]></content>
