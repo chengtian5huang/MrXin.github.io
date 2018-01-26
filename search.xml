@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[一次springboot事物bug的处理]]></title>
+    <url>%2F2018%2F01%2F26%2Fspring-Transactional%2F</url>
+    <content type="text"><![CDATA[工作需要将一条数据分别存入es(Elasticsearch)和mysql, 实现方法是: 在 springboot框架里面用@Transactional注解应用的方法保证事物. 抄一条事物的解释:事务的作用就是为了保证用户的每一个操作都是可靠的，事务中的每一步操作都必须成功执行，只要有发生异常就回退到事务开始未进行操作的状态。 今天发现一条数据存入了mysql, 但是没有存入es, 也就是事物失败了, es出现异常时候没有回退.谷歌等各种搜索都说@Transactional处理事物是可以的.只能尝试和猜测各种写法的问题, 在一次把方法的private改成public后,发现idea没有提示, 难道是因为这个原因? 再次发送数据后,发现事物成功了. 用 public 事物 当关键字在谷歌上一搜发现果然是:只有@Transactional 注解应用到public 方法，才能进行事务管理 记录一下, 希望以后写事物的时候每次都记住这次大坑.]]></content>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[mac 安装和设置java maven]]></title>
     <url>%2F2017%2F11%2F20%2Fmac-java-maven-md%2F</url>
     <content type="text"><![CDATA[1 安装和设置java 1: 搜索官方下载jdk相应版本, 然后双击安装 2: iterm运行 1/usr/libexec/java_home -V 出现类似 1/Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home 说明安装成功 3: 打开zsh, vim ~/.zshrc 最后面添加 1export JAVA_HOME=$(/usr/libexec/java_home) 保存4: 重新加载zshrc, source ~/.zshrc, 输入echo $JAVA_HOME出现 1/Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home 说明安装成功 2 安装和设置maven 用brew安装maven brew install maven item 运行 mvn -v出现这样结果说明安装成功 12345Maven home: /usr/local/Cellar/maven/3.5.2/libexecJava version: 1.8.0_151, vendor: Oracle CorporationJava home: /Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home/jreDefault locale: zh_CN, platform encoding: UTF-8OS name: "mac os x", version: "10.12.6", arch: "x86_64", family: "mac" 改成阿里源, 参考来源 /usr/local/Cellar/maven/3.5.2/libexec/conf 这个目录下找到setting.xml文件, 打开.在mirrors字段下填入 123456&lt;mirror&gt; &lt;id&gt;alimaven&lt;/id&gt; &lt;name&gt;aliyun maven&lt;/name&gt; &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt; &lt;mirrorOf&gt;central&lt;/mirrorOf&gt; &lt;/mirror&gt; 修改idea的默认maven, 参考来源1, 来源2]]></content>

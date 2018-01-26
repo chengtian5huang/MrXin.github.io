@@ -294,6 +294,134 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://mrxin.github.io/2016/09/13/zsh-prompt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小信">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小信' Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/09/13/zsh-prompt/" itemprop="url">修改zsh命令提示符</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-13T14:05:35+08:00">
+                2016-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>修改zsh命令提示符</p>
+<ul>
+<li>安装好zsh后， 打开终端，输入<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">vim</span> ~/.zshrc</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>打开zsh配置文件</p>
+<ul>
+<li>在.zshrc最下面加入<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">autoload</span> -U compinit promptinit</div><div class="line">compinit</div><div class="line">promptinit</div><div class="line"></div><div class="line"><span class="comment"># 设置 redhat 主题的默认命令行提示符</span></div><div class="line">prompt redhat</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>启动tab命令补全 和 命令提示符主题,<br>可以用终端命令’prompt -l’或者’prompt -p’查看可用主题</p>
+<ul>
+<li>修改保存后,重启终端,可能出现警告<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">zsh compinit: insecure directories, <span class="built_in">run</span> compaudit <span class="keyword">for</span> <span class="built_in">list</span>.</div><div class="line">Ignore insecure directories <span class="keyword">and</span> <span class="keyword">continue</span> [y] <span class="keyword">or</span> abort compinit [n]?</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>按y后,可以出现修改后命令提示符</p>
+<p>如果想取消这个警告,在On OSX 10.11下,输入<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd <span class="regexp">/usr/</span>local<span class="regexp">/share/</span></div><div class="line">sudo chmod -R <span class="number">755</span> zsh</div><div class="line">sudo chown -R <span class="string">root:</span>staff zsh</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://mrxin.github.io/2016/08/23/jd-woods/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1366,127 +1494,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://mrxin.github.io/2015/09/25/taobao-ssl3-error/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小信">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小信' Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/09/25/taobao-ssl3-error/" itemprop="url">Mac10.10系统下用python抓取淘宝时出现sslv3 alert handshake failure (_ssl.c:590)的解决办法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-09-25T18:44:31+08:00">
-                2015-09-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>用python的requests库模拟抓取淘宝页面时会出现如下错误,</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">requests</span><span class="selector-class">.exceptions</span><span class="selector-class">.SSLError</span>: <span class="selector-attr">[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE]</span> <span class="selector-tag">sslv3</span> <span class="selector-tag">alert</span> <span class="selector-tag">handshake</span> <span class="selector-tag">failure</span> (_<span class="selector-tag">ssl</span><span class="selector-class">.c</span><span class="selector-pseudo">:590)</span></div></pre></td></tr></table></figure>
-<p><img src="http://ww3.sinaimg.cn/large/7293e3b7jw1ewew5jglasj20ut061djd.jpg" alt=""></p>
-<p>换成自带的urllib也是一样报错,<br>但是在windows系统下同样的代码正常,没有任何错误.</p>
-<p>开始以为是openssl的问题, 把系统自带的openssl删除,然后用brew安装最新版本的openssl也不行.</p>
-<p>根据stackoverflow大神的帖子,我试了很多方式,最终找到一个解决这个错误的方法.</p>
-<p>在python中加入以下语句即可.</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">import requests<span class="selector-class">.packages</span><span class="selector-class">.urllib3</span><span class="selector-class">.util</span><span class="selector-class">.ssl_</span></div><div class="line">requests<span class="selector-class">.packages</span><span class="selector-class">.urllib3</span><span class="selector-class">.util</span><span class="selector-class">.ssl_</span><span class="selector-class">.DEFAULT_CIPHERS</span> = <span class="string">'ALL'</span></div></pre></td></tr></table></figure>
-<p><img src="http://ww2.sinaimg.cn/large/7293e3b7jw1ewewd68bx3j20wv0lf16w.jpg" alt=""></p>
-<p>参考链接 :  <a href="http://stackoverflow.com/questions/31730819/python-sslerror-using-requests-for-surveymonkey-com" target="_blank" rel="external">Stack Overflow</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1536,7 +1543,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-count">62</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1549,7 +1556,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1591,7 +1598,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
