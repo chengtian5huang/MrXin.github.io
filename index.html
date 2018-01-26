@@ -313,7 +313,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/26/spring-Transactional/" itemprop="url">一次springboot事物bug的处理</a></h1>
+                <a class="post-title-link" href="/2018/01/26/spring-Transactional/" itemprop="url">一次springboot事务bug的处理</a></h1>
         
 
         <div class="post-meta">
@@ -362,11 +362,11 @@
       
         
           
-            <p>工作需要将一条数据分别存入es(Elasticsearch)和mysql, 实现方法是: 在 springboot框架里面用@Transactional注解应用的方法保证事物.</p>
-<p>抄一条事物的解释:<br><code>事务的作用就是为了保证用户的每一个操作都是可靠的，事务中的每一步操作都必须成功执行，只要有发生异常就回退到事务开始未进行操作的状态。</code></p>
-<p>今天发现一条数据存入了mysql, 但是没有存入es, 也就是事物失败了, es出现异常时候没有回退.<br>谷歌等各种搜索都说@Transactional处理事物是可以的.<br>只能尝试和猜测各种写法的问题, 在一次把方法的private改成public后,发现idea没有提示, 难道是因为这个原因? 再次发送数据后,发现事物成功了.</p>
-<p>用 <code>public 事物</code> 当关键字在谷歌上一搜发现果然是:<br><code>只有@Transactional 注解应用到public 方法，才能进行事务管理</code></p>
-<p>记录一下, 希望以后写事物的时候每次都记住这次大坑.</p>
+            <p>工作需要将一条数据分别存入es(Elasticsearch)和mysql, 实现方法是: 在 springboot框架里面用@Transactional注解应用的方法保证事务.</p>
+<p>抄一条事务的解释:<br><code>事务的作用就是为了保证用户的每一个操作都是可靠的，事务中的每一步操作都必须成功执行，只要有发生异常就回退到事务开始未进行操作的状态。</code></p>
+<p>今天发现一条数据存入了mysql, 但是没有存入es, 也就是事务失败了, es出现异常时候没有回退.<br>谷歌等各种搜索都说@Transactional处理事务是可以的.<br>只能尝试和猜测各种写法的问题, 在一次把方法的private改成public后,发现idea没有提示, 难道是因为这个原因? 再次发送数据后,发现事务成功了.</p>
+<p>用 <code>public 事务</code> 当关键字在谷歌上一搜发现果然是:<br><code>只有@Transactional 注解应用到public 方法，才能进行事务管理</code></p>
+<p>记录一下, 希望以后写事务的时候每次都记住这次大坑.</p>
 
           
         
